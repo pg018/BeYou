@@ -17,4 +17,20 @@ const verifyLogin = async (req, res, next) => {
   next()
 }
 
-module.exports = verifyLogin
+const isAlreadyLoggedIn = async (req, res, next) => {
+  const jwtCookie = req.cookies.jwt
+  if (!jwtCookie) {
+    return next()
+  }
+  const isTokenExpired = JWTService.VerifyPayload(jwtCookie)
+  if (isTokenExpired) {
+    res.clearCookie('jwt')
+    return next()
+  }
+  return res.render('./post/posts')
+}
+
+module.exports = {
+  verifyLogin,
+  isAlreadyLoggedIn,
+}

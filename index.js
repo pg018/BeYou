@@ -23,11 +23,11 @@ app.use(errorHandlingMiddleware)
 app.get('/', (req, res) => {
   res.render('./Pages/home')
 })
-app.use('/auth',authRouter)
-app.use('/post',authMiddleware, postsRouter)
+app.use('/auth', authMiddleware.isAlreadyLoggedIn, authRouter)
+app.use('/post', authMiddleware.verifyLogin, postsRouter)
 
 app.all('*', (req, res) => {
-  res.render('./Pages/notFoundError');
+  res.render('./Pages/notFoundError')
 })
 
 mongoose
