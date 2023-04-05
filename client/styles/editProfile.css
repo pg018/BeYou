@@ -1,0 +1,108 @@
+:root {
+    --invert-var: 1;
+}
+
+.light-invert {
+    --invert-var: 0;
+}
+
+* {
+    padding: 0px;
+    margin: 0px;
+    box-sizing: border-box;
+}
+
+
+
+.cont-edit-profile{
+    min-height: calc(100vh - 66px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.main-edit-profile {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    min-width: 20rem;
+    margin: auto;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
+}
+
+.profimg{
+    margin-top: 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+.profimg img{
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    /* border:3px solid black; */
+    padding: 1px;
+    object-fit: cover;
+    margin-bottom: 8px;
+}
+.inp{
+    box-sizing: border-box;
+    background: none;
+    text-align: center;
+
+    outline: none;
+    padding:4px;
+    border:none;
+    border-bottom: 1px solid #820096;
+}
+
+.inpp{
+    width: 90%;
+    max-width: 400px;
+    min-width: 50%;
+}
+
+.cont-edit-profile input {
+    width: 100%;
+}
+
+.cont-edit-profile input:active {
+    border: none;
+}
+
+.inp:focus{
+    border:none;
+    border-bottom: 2px solid #730096;
+    border-bottom-right-radius: 13px;
+    transition: 0.1 ease;
+}
+
+
+
+
+.gender{
+    min-width: 230px;
+}
+.profimg input[type="file"]{
+    display :none;
+}
+
+
+.Dob .inp::placeholder {
+    color: white;
+}
+
+::-webkit-calendar-picker-indicator {
+    filter: invert(var(--invert-var));
+}
+
+@media screen and (max-width: 640px) {
+    .cont-edit-profile {
+      min-height: calc(100vh - 75px);
+    }
+}

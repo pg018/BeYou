@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en" >
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sign Up</title>
+    <link rel="shortcut icon" href="/../Sources/favicon.ico" type="image/x-icon">
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
+      integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="stylesheet" href="/../styles/common.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="/../tailwind.config.js"></script>
+    <link rel="stylesheet" href="/../styles/styles.css" />
+    <link rel="stylesheet" href="/../styles/DarkLightButton.css" />
+  </head>
+  <body>
+    <%- include ('../Components/navbar.ejs') %>
+   
+    <section class="h-screen bg-[#f7f7f7] screenHolder  dark:bg-[#121212]  transition-colors duration-1000 ">
+      <div
+        class="px-6 md:h-full bg-[#f7f7f7] text-gray-800 dark:bg-[#121212]  transition-colors duration-1000  dark:text-white"
+      >
+        <div
+          class="flex xl:justify-center md:justify-around items-center flex-wrap h-full g-6 transition-colors duration-1000 "
+        >
+          <div
+            class="grow-0 shrink-1 md:shrink-0 basis-auto xl:w-5/12 lg:w-5/12 md:w-5/12 h-full imageHolder"
+          >
+          <lottie-player  class="w-100 " src="https://assets7.lottiefiles.com/packages/lf20_kdCeeh2u4M.json"  background="transparent"  speed="1" autoplay></lottie-player>
+          </div>
+          <div
+            class="xl:ml-20 mt-10 xl:w-5/12 lg:w-5/12 md:w-6/12 dark:bg-[#1f1f1f] w-100 bg-[#ebebeb] text-sm containerhai text-black dark:text-white  transition-colors duration-1000 "
+          >
+            <form class="w-full" id="formSign" action="/auth/signup" method="post">
+              
+              
+              <h1 style="font-size: 2rem;"  class=" mb-7 font-bold text-center">Sign Up</h1>
+
+              <% if (error === 1) { %>
+                <h1 class="err-message">User Already Exists</h1>
+              <% } %>
+              
+              <div class="mb-6 ">
+                <p class="error-message">Invalid Username</p>
+                <input
+                  type="text"
+                  name="username"
+                  class=" inputhai form-control block w-full px-4 py-2 text-base font-normal text-gray-800  transition-colors duration-1000  dark:bg-[#1b1b1bff] dark:text-white dark:border-purple-400 dark:focus:border-purple-600  bg-white bg-clip-padding border border-solid border-purple-700 rounded-xl transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-purple-300 focus:outline-none"
+                  id="signup-username"
+                  placeholder="Username"
+                />
+              </div>
+
+              <div class="mb-6 ">
+                <p class="error-message">Invalid Email Address</p>
+                <input
+                  type="text"
+                  name="email"
+                  class="inputhai form-control block w-full px-4 py-2 text-base font-normal text-gray-800  transition-colors duration-1000  dark:bg-[#1b1b1bff] dark:text-white dark:border-purple-400 dark:focus:border-purple-600  bg-white bg-clip-padding border border-solid border-purple-700 rounded-xl transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-purple-300 focus:outline-none"
+                  id="signup-email"
+                  placeholder="Email address"
+                />
+              </div>
+
+              <div class="mb-6 ">
+                <p class="error-message">Enter a valid password</p>
+                <input
+                  type="password"
+                  name="pass1"
+                  class=" inputhai form-control block w-full px-4 py-2 text-base font-normal dark:bg-[#1b1b1bff] transition-colors duration-1000  dark:text-white dark:border-purple-400 dark:focus:border-purple-600 text-gray-800 bg-white bg-clip-padding border border-solid border-purple-700 rounded-xl transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-purple-300 focus:outline-none"
+                  id="signup-password"
+                  placeholder="Password"
+                />
+              </div>
+              <div class="mb-8 ">
+                <p class="error-message">Passwords must match</p>
+                <input
+                  type="password"
+                  name="pass2"
+                  class=" inputhai form-control block w-full px-4 py-2 text-base font-normal  transition-colors duration-1000 dark:bg-[#1b1b1bff] dark:border-purple-400 dark:focus:border-purple-600  dark:text-white text-gray-800 bg-white bg-clip-padding border border-solid border-purple-700 rounded-xl transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-purple-300 focus:outline-none"
+                  id="signup-confirm-password"
+                  placeholder="Confirm Password"
+                />
+              </div>
+
+              
+
+              <div class="text-center ">
+                <button type="submit" class="btn-hover color-7" id="signup-submit">Sign Up</button>
+                <p class="text-sm font-semibold mt-4 pt-1 mb-0">
+                  Already have an account?
+                  <a
+                    href="/auth/login"
+                    class="text-red-600 hover:text-red-700 focus:text-red-700 transition duration-200 ease-in-out"
+                    >Login</a
+                  >
+                </p>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+    <script src="/../javascript/DarkLighButton.js"></script>
+    <script src="/../javascript/helpers/LoginSignUpHelpers.js"></script>
+    <script src="/../javascript/SignUp.js"></script>
+  </body>
+</html>

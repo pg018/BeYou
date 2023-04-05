@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en" >
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login</title>
+    <link rel="shortcut icon" href="/../Sources/favicon.ico" type="image/x-icon">
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
+      integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,400;0,500;0,800;1,800&family=Montserrat:ital,wght@0,300;0,400;0,500;0,700;0,900;1,700&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="/../tailwind.config.js"></script>
+    <link rel="stylesheet" href="/../styles/styles.css" />
+    <link rel="stylesheet" href="/../styles/common.css" />
+    <link rel="stylesheet" href="/../styles/DarkLightButton.css" />
+  </head>
+
+  <body>
+    <%- include ('../Components/navbar.ejs') %>
+    <section
+      class="h-screen bg-[#f7f7f7] screenHolder dark:bg-[#121212] transition-colors duration-1000"
+    >
+      <div
+        class="px-6 md:h-full bg-[#f7f7f7] text-gray-800 dark:bg-[#121212] dark:text-white transition-colors duration-1000"
+      >
+        <div
+          class="flex xl:justify-center md:justify-around items-center flex-wrap h-full g-6 transition-colors duration-1000"
+        >
+          <div
+            class="grow-0 shrink-1 md:shrink-0 basis-auto xl:w-5/12 lg:w-5/12 md:w-5/12 imageHolder"
+          >
+            <lottie-player
+              class="w-100"
+              src="/../Sources/login_animation.json"
+              background="transparent"
+              speed="1"
+              autoplay
+            ></lottie-player>
+          </div>
+         
+          <div
+            class="xl:ml-20 xl:w-5/12 lg:w-5/12 md:w-6/12 w-100 dark:bg-[#1f1f1f] dark:text-white transition-colors duration-1000 text-black bg-[#ebebeb] text-sm containerhai"
+          >
+            <form class="w-full" name="loginForm" action="/auth/login" method="post">
+              <h1 style="font-size: 2rem" class="mb-7 font-bold text-center">
+                Login
+              </h1>
+              <% if (showError) { %>
+              <h3
+                id="userNonExistError"
+                class="err-message"
+                style="text-align: center; margin-top: 0"
+              >
+                <%= errorMessage %>
+              </h3>
+              <% } else { %> 
+                <span></span> 
+              <% } %>
+              <p class="error-message" id="emailError">Invalid Email Address</p>
+              <div class="mb-6">
+                <input
+                  type="text"
+                  name="email"
+                  class="inputhai form-control block w-full px-4 py-2 text-base font-normal text-gray-800 bg-white dark:bg-[#1b1b1bff] transition-colors duration-1000 dark:text-white bg-clip-padding border border-solid border-purple-700 dark:border-purple-400 dark:focus:border-purple-600 rounded-xl transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-purple-600 focus:outline-none"
+                  placeholder="Email address"
+                  id="emailAddress"
+                />
+              </div>
+
+              <p class="error-message" id="passwordError">Invalid Password</p>
+              <div class="mb-6">
+                <input
+                  type="password"
+                  name="password"
+                  class="inputhai form-control block w-full px-4 py-2 text-base font-normal dark:bg-[#1b1b1bff] transition-colors duration-1000 dark:text-white text-gray-800 bg-white bg-clip-padding border border-solid border-purple-700 rounded-xl transition ease-in-out m-0 focus:text-gray-700 dark:border-purple-400 dark:focus:border-purple-600 focus:bg-white focus:border-purple-600 focus:outline-none"
+                  placeholder="Password"
+                  id="enteredPassword"
+                />
+              </div>
+              <div class="text-center mb-6 px-2">
+                <a
+                  href="/auth/forgotPassword"
+                  class="text-gray-800 dark:text-white text-md font-semibold text-[1rem] font-underline"
+                  >Forgot password?</a
+                >
+              </div>
+
+              <div class="text-center">
+                <button
+                  style="cursor: pointer"
+                  type="submit"
+                  id="loginBtn"
+                  class="btn-hover color-7"
+                >
+                  Login
+                </button>
+                <p class="text-sm font-semibold mt-4 pt-1 mb-0">
+                  Don't have an account?
+                  <a
+                    href="/auth/signup"
+                    class="text-red-600 hover:text-red-700 focus:text-red-700 transition duration-200 ease-in-out"
+                    >Register</a
+                  >
+                </p>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- <div class=" footer__front bg-[#f7f7f7] text-gray-800 dark:bg-[#121212] dark:text-white">
+    <a href="">About Us</a>
+    <a href="">Privacy Policy</a>
+  </div> -->
+    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+    <script src="/../javascript/helpers/UserHelpers.js"></script>
+    <script src="/../javascript/helpers/LoginSignUpHelpers.js"></script>
+    <script src="/../javascript/Login.js"></script>
+    <script src="/../javascript/DarkLighButton.js"></script>
+  </body>
+</html>

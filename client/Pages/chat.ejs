@@ -1,0 +1,81 @@
+<div class="chat-container flex flex-row transition-colors duration-1000 text-black dark:text-white"">
+    <div class="leftSide border-l-2 border-purple-600 md:basis-1/3 min-w-[260px] w-full transition-colors duration-1000">
+        <div class="chat-header bg-[#ebebeb] dark:bg-zinc-800 rounded-b-md py-2 px-3 transition-colors duration-1000">
+            <div class="userimg h-12 w-12">
+                <img class="w-full max-h-full" src="/Sources/smallnew.png" class="cover">
+            </div>
+            <div class="flex flex-row gap-8 px-4 text-black dark:text-white">
+                <div><ion-icon class="h-5 w-5" name="chatbubble-ellipses-outline"></ion-icon></div>
+                <div><ion-icon class="h-5 w-5" name="add-circle-outline"></ion-icon></div>
+                <div><ion-icon class="h-5 w-5" name="ellipsis-vertical"></ion-icon></div>
+            </div>
+        </div>
+
+        <div class="search_chat p-2 transition-colors duration-1000">
+            <input class="py-2 pl-[50px] rounded-full transition-colors duration-1000 dark:bg-zinc-700 bg-white" type="text" placeholder="Search or start new chat">
+            <ion-icon class="text-black dark:text-zinc-300 transition-colors duration-1000" name="search-outline"></ion-icon>
+        </div>
+
+        <div class="chatlist transition-colors duration-1000">
+            <%- include("../Partials/chatListItem.ejs") %>
+            <%- include("../Partials/chatListItem.ejs") %>
+            <%- include("../Partials/chatListItem.ejs") %>
+            <%- include("../Partials/chatListItem.ejs") %>
+            <%- include("../Partials/chatListItem.ejs") %>
+            <%- include("../Partials/chatListItem.ejs") %>
+            <%- include("../Partials/chatListItem.ejs") %>
+            <%- include("../Partials/chatListItem.ejs") %>
+            <%- include("../Partials/chatListItem.ejs") %>
+            <%- include("../Partials/chatListItem.ejs") %>
+            <%- include("../Partials/chatListItem.ejs") %>
+            <%- include("../Partials/chatListItem.ejs") %>
+            <%- include("../Partials/chatListItem.ejs") %>
+            <%- include("../Partials/chatListItem.ejs") %>
+            <%- include("../Partials/chatListItem.ejs") %>
+        </div>
+
+    </div>
+
+    <div class="rightSide border-l-[1px] border-purple-600 md:basis-2/3 md:flex hidden flex flex-col">
+        <div class="chat-header bg-[#ebebeb] transition-colors duration-1000 dark:bg-zinc-800 flex rounded-b-md flex-row gap-2 px-2 py-3">
+            <div class="imgtext">
+                <div class="newflwerimg h-10 w-10">
+                    <img src="/Sources/newflwer.png" class="cover w-full max-h-full">
+                </div>
+            </div>
+            <div class="flex flex-row justify-between w-full items-center">
+                <div class="text-sm text-black dark:text-white">
+                    <h4>Rachel</h4>
+                    <span>online</span>
+                </div>
+                <div class="flex flex-row gap-4">
+                    <div>
+                        <ion-icon name="search-outline"></ion-icon>
+                    </div>
+                    <div>
+                        <ion-icon name="ellipsis-vertical"></ion-icon>
+                    </div>
+                </div>
+            </div>    
+        </div>
+
+
+        <div class="chatbox p-6 grow gap-3 text-black dark:text-white transition-colors duration-1000">
+            <div class="message my_message text-sm ">
+                <p>Heyyy, how are you doing buddy?</p>
+                <span>9:45</span>
+            </div>
+            <div class="message frnd_message text-sm">
+                <p>yoo! i am doing fine</p>
+                <span>10:00</span>
+            </div>
+        </div>
+
+        <div class="chatbox_input bg-[#b8b8b8] dark:bg-zinc-800 gap-3 p-3 transition-colors duration-1000 text-black dark:text-white">
+            <ion-icon name="happy-outline"></ion-icon>
+            <ion-icon name="attach-outline"></ion-icon>
+            <input class="text-sm dark:bg-zinc-700" type="text" placeholder="Type a message">
+            <ion-icon name="mic"></ion-icon>
+        </div>
+    </div>
+</div>

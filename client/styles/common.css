@@ -1,0 +1,64 @@
+* {
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-user-drag: none;
+}
+
+.feed {
+  max-height: calc(100vh - 66px);
+}
+
+.feed::-webkit-scrollbar,
+.chatlist::-webkit-scrollbar 
+{
+	width: 10px;
+	background-color: #000;
+  border-radius: 5px;
+}
+
+.feed::-webkit-scrollbar-track,
+.chatlist::-webkit-scrollbar-track
+{
+	-webkit-box-shadow: inset 0px 0px 6px rgba(0,0,0,.3);
+	background-color: #706a6a;
+}
+
+.feed::-webkit-scrollbar-thumb,
+.chatlist::-webkit-scrollbar-thumb
+{
+	background-color: #444;
+  border-radius: 5px;
+}
+
+.error-message {
+  color:rgb(255, 53, 53);
+  margin-left: 0.25rem;
+  display: none;
+  margin-bottom: 4px;
+}
+
+.main-container {
+  min-height: calc(100vh - 66px);
+}
+
+.err-message {
+  color:rgb(255, 53, 53);
+  margin-left: 0.25rem;
+  text-align: center;
+  margin-bottom: 4px;
+}
+
+
+@media screen and (max-width: 640px) {
+  .main-container {
+    min-height: calc(100vh - 75px);
+  }
+  
+  .feed {
+    max-height: calc(100vh - 75px);
+  }
+}
+

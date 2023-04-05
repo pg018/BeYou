@@ -1,0 +1,77 @@
+/* Hide scrollbar for Chrome, Safari and Opera */
+.follow__wrapper::-webkit-scrollbar {
+    display: none;
+}
+  
+  /* Hide scrollbar for IE, Edge and Firefox */
+.follow__wrapper {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+
+.follow__wrapper {
+    border-bottom: 2px solid rgb(80, 0, 100);
+    display: flex;
+    position: relative;
+    padding: 15px 8px;
+    height: calc(0.6*(100vh - 66px - 58px));
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.follow__wrapper .follow__card {
+    display: flex;
+    width: 100%;
+    padding-right: 5px;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 100px 20px 20px 100px;
+    width: 100%;
+}
+
+.follow__card .follow__content {
+    display: flex;
+    align-items: center;
+    border-radius: 100px 0px 0px 100px;
+}
+
+.follow__card .follow__details {
+    margin-left: 5px;
+}
+
+.follow__wrapper .follow__card .follow__img {
+    height: 50px;
+    width: 50px;
+    background-color: rgb(129, 0, 194);
+    padding: 2px;
+    border-radius: 50%;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
+}
+
+.follow__details span {
+    display: inline-block;
+    font-weight: 600;
+    font-size: 16px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    width: 100px;
+    overflow: hidden;
+}
+
+.follow__card .follow__img img {
+    height: 100%;
+    width: 100%;
+    border-radius: 50%;
+}
+
+.carousel-status-image {
+    width: 100%;
+    max-height: 100%;
+}
+
+.thoughts {
+    height: calc(0.4*(100vh - 66px - 45px));
+}
+
+
+

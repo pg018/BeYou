@@ -1,1 +1,5 @@
-export default emptyString = ''
+const emptyString = ''
+
+module.exports = {
+  emptyString,
+}

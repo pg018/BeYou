@@ -1,0 +1,26 @@
+/* New Button */
+
+.theme-container {
+    width: 2rem;
+    height: 2rem;
+    padding: 4px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: 0.5s;
+    cursor: pointer;
+}
+  
+.theme-container:hover {
+    opacity: 0.8;
+}
+  
+.shadowdark:hover{
+    box-shadow: 0 0 11px rgba(24, 24, 24, 0.411);
+}
+  
+.shadowlight:hover{
+    box-shadow: 0 0 11px rgba(131, 131, 131, 0.471);
+}
+  

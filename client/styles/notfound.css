@@ -1,0 +1,89 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+.bodyy {
+  height: 100vh;
+  background-color: #000000;
+  text-align: center;
+  color: #e0e0e0;
+  font-family: 'Fira Mono', monospace;
+}
+
+
+.title {
+  font-size: 2.5rem;
+  font-family: 'Permanent Marker', cursive;
+  margin: 0.5rem 0 0 0;
+}
+.subtitle {
+  margin: 0.2rem 0 1rem 0;
+}
+.divv {
+  transform-style: preserve-3d;
+}
+.svgg {
+  width: clamp(280px, 70%, 600px);
+  height: 500px;
+  z-index: -1;
+}
+#rocket {
+  transform: translateY(750px);
+
+  animation: launch 2s ease-out forwards;
+}
+
+.home-link {
+  background-color: #f2f2f2;
+  color: #3b005d;
+  padding: 0.5rem 2rem;
+  font-size: 1.2em;
+  height: 4rem;
+  font-weight: bold;
+  letter-spacing: 1px;
+  text-decoration: none;
+  border-radius: 2px;
+  transition: all 0.3s ease;
+  transform: translateY(50px);
+  animation: link 1s ease-in-out forwards;
+}
+
+.home-link:hover {
+  background-color: #610066;
+  color: #ffffff;
+}
+
+@keyframes launch {
+  from {
+    transform: translateY(750px);
+  }
+  to {
+    perspective: 500px;
+    transform: translateY(0px);
+  }
+}
+#stars {
+  animation: twinkling 2s linear;
+}
+@keyframes twinkling {
+  from {
+    transform: scale(0);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+.text {
+  opacity: 0;
+  animation: appear 1s ease-in forwards;
+  animation-delay: 1.8s;
+}
+@keyframes appear {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+

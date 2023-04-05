@@ -1,15 +1,22 @@
 const jwt = require('jsonwebtoken')
 
 class JWTService {
-  mySecretKey = 'secretKey'
-
   static SignPayload(payload) {
-    return jwt.sign(payload, mySecretKey, { expiresIn: 500 })
+    return jwt.sign(payload, 'secretKey', { expiresIn: 3600000 }) // 1hr
   }
 
   static VerifyPayload(tokenPayload) {
     try {
-      return jwt.verify(tokenPayload, mySecretKey)
+      const verifiedToken = jwt.decode(tokenPayload, { json: true })
+      if (!verifiedToken) {
+        return undefined
+      }
+      const timeDecided = verifiedToken.exp
+      const timeHappened = new Date().getTime() / 1000
+      if (timeHappened > timeDecided) {
+        return true // expired
+      }
+      return false
     } catch (error) {
       throw new Error('Create custom jwt token error')
     }

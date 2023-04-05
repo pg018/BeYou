@@ -5,8 +5,8 @@ class EncryptionService {
     return await bcrypt.hash(incomingString, 12)
   }
 
-  static async VerifyString(originalHashValue, incomingString) {
-    return await bcrypt.compare(originalHashValue, incomingString)
+  static async VerifyString(incomingString, originalHashValue) {
+    return await bcrypt.compare(incomingString, originalHashValue)
   }
 }
 

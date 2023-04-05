@@ -1,5 +1,4 @@
 const mongoose = require('mongoose')
-import { emptyString } from '../helpers/constants'
 
 //This is the main schema of the userCollections
 const userSchema = new mongoose.Schema({
@@ -7,7 +6,7 @@ const userSchema = new mongoose.Schema({
   emailId: { type: String, required: true, unique: true },
   password: { type: String, required: true },
   lastPostedTime: { type: Date, required: false },
-  description: { type: String, default: emptyString, required: true },
+  description: { type: String, required: false },
   dateOfBirth: { type: Date, required: false },
   noFriends: { type: Number, default: 0, required: true },
   noFollowing: { type: Number, default: 0, required: true },

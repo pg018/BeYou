@@ -1,0 +1,82 @@
+<div
+  class="main text-gray-800 dark:text-gray-100 bg-[#fff] dark:bg-[#000] transition-colors duration-1000"
+>
+  <div class="banner">
+    <img
+      src="https://img.freepik.com/free-vector/nature-scene-with-river-hills-forest-mountain-landscape-flat-cartoon-style-illustration_1150-37326.jpg"
+      alt=""
+    />
+  </div>
+  <div class="top">
+    <div class="Followers right">
+      <h2 class="small-font font-bold">165</h2>
+      <p class="small-font">Friends</p>
+    </div>
+    <div class="profile flexcenter1">
+      <img
+        class="border-4 border-white dark:border-black transition-colors duration-1000"
+        src="https://staticg.sportskeeda.com/editor/2022/07/aedcf-16570135965843.png"
+        alt="pfp"
+      />
+    </div>
+    <div class="Following left">
+      <h2 class="small-font font-bold">105</h2>
+      <p class="small-font">Following</p>
+    </div>
+  </div>
+
+  <div class="mid">
+    <div class="name font-bold">
+      <h3>Shashank Raj</h3>
+    </div>
+    <div class="bio">
+      <p class="small-font">
+        A web developer with MERN Stack knowledge. A web developer with MERN
+        Stack knowledge. A web developer with MERN Stack knowledge
+      </p>
+    </div>
+  </div>
+  <hr class="style2" />
+
+  <div>
+    <div class="flexcenter">
+      <a href="/dashboard/editProfile">
+        <button class="btn1 hover:text-black dark:hover:text-white">
+          <i class="fa fa-pencil" aria-hidden="true"></i> &nbsp; Edit Profile
+          <span></span><span></span><span></span><span></span>
+        </button>
+      </a>
+      <a>
+        <button class="btn1 hover:text-black dark:hover:text-white">
+          <i class="fa fa-share" aria-hidden="true"></i> &nbsp; Share Profile
+          <span></span><span></span><span></span><span></span>
+        </button>
+      </a>
+      <a>
+        <button class="btn1 hover:text-black dark:hover:text-white">
+          <i class="fa fa-file-image" aria-hidden="true"></i> &nbsp; My Posts
+          <span></span><span></span><span></span><span></span>
+        </button>
+      </a>
+      <a>
+        <button class="btn1 hover:text-black dark:hover:text-white">
+          <i class="fa fa-cogs" aria-hidden="true"></i> &nbsp; User Settings
+          <span></span><span></span><span></span><span></span>
+        </button>
+      </a>
+    </div>
+    <div class="myposts">
+      <%- include("./../Partials/postListItem.ejs", {title: "Enjoying", name:
+      "Shashank", profileImage:
+      "https://staticg.sportskeeda.com/editor/2022/07/aedcf-16570135965843.png",
+      mainImage:
+      "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NXx8cGFydHl8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60",
+      date: "11th March, 2023"}) %> <%-include("./../Partials/postListItem.ejs",
+      {title: "Eating out today", name: "Shashank", profileImage:
+      "https://staticg.sportskeeda.com/editor/2022/07/aedcf-16570135965843.png",
+      mainImage:
+      "https://cdn.britannica.com/98/235798-050-3C3BA15D/Hamburger-and-french-fries-paper-box.jpg",
+      date: "11th February, 2023"}) %>
+    </div>
+  </div>
+</div>
