@@ -70,11 +70,17 @@ const postRegister = async (req, res) => {
   }
 }
 
+const getSignOut = async (req, res) => {
+  res.clearCookie('jwt')
+  return res.redirect('/auth/login')
+}
+
 const authControllers = {
   postLogin,
   getLogin,
   getRegister,
   postRegister,
+  getSignOut,
 }
 
 module.exports = authControllers

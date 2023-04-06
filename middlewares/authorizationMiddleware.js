@@ -5,14 +5,14 @@ const verifyLogin = async (req, res, next) => {
   if (!jwtCookie) {
     return res
       .status(401)
-      .render('./Pages/login', { showError: false, errorMessage: '' })
+      .redirect('/auth/login')
   }
   const isTokenExpired = JWTService.VerifyPayload(jwtCookie)
   if (isTokenExpired) {
     res.clearCookie('jwt')
     return res
       .status(401)
-      .render('./Pages/login', { showError: false, errorMessage: '' })
+      .redirect('/auth/login')
   }
   next()
 }
@@ -27,7 +27,7 @@ const isAlreadyLoggedIn = async (req, res, next) => {
     res.clearCookie('jwt')
     return next()
   }
-  return res.render('./post/posts')
+  return res.redirect('/post/posts')
 }
 
 module.exports = {

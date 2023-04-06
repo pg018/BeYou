@@ -7,7 +7,6 @@ const errorHandlingMiddleware = require('./middlewares/ErrorHandlerMiddleware')
 const authRouter = require('./routes/authRoutes')
 const postsRouter = require('./routes/postRoutes')
 const authMiddleware = require('./middlewares/authorizationMiddleware')
-
 const app = express()
 
 app.set('view engine', 'ejs')
@@ -23,7 +22,7 @@ app.use(errorHandlingMiddleware)
 app.get('/', (req, res) => {
   res.render('./Pages/home')
 })
-app.use('/auth', authMiddleware.isAlreadyLoggedIn, authRouter)
+app.use('/auth', authRouter)
 app.use('/post', authMiddleware.verifyLogin, postsRouter)
 
 app.all('*', (req, res) => {

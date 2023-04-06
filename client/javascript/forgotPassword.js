@@ -20,9 +20,10 @@ const validateIncomingEmailAddress = (value) => {
 const enableOtpButton = () => {
   if (!validateIncomingEmailAddress(emailAddress.value)) {
     otpButton.disabled = true
-    emailError.innerHTML = "Invalid Email Address"
+    emailError.innerHTML = 'Invalid Email Address'
   } else {
     otpButton.disabled = false
+    localStorage.setItem('forgotPasswordEmail', emailAddress.value)
   }
 }
 
@@ -32,3 +33,22 @@ emailAddress.addEventListener('change', (e) => {
 })
 
 emailAddress.addEventListener('input', enableOtpButton)
+
+const verifyOtpBtn = document.getElementById('verifyOtpBtn')
+const otpInput = document.getElementById('otpInput')
+
+const enableVerifyOtpBtn = (otpValueEntered) => {
+  if (
+    otpValueEntered.length === 6 &&
+    /\d{6}/.test(otpValueEntered) &&
+    otpValueEntered.length.length !== 0
+  ) {
+    verifyOtpBtn.disabled = false
+  } else {
+    verifyOtpBtn.disabled = true
+  }
+}
+
+otpInput.addEventListener('input', (e) => {
+  enableVerifyOtpBtn(e.target.value)
+})
