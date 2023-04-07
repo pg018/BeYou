@@ -1,14 +1,13 @@
 const mongoose = require('mongoose')
-import { emptyString } from '../helpers/constants'
 
 const postSchema = new mongoose.Schema({
-  userId: { type: String },
-  title: { type: String },
-  description: { type: String, default: emptyString },
-  addedOn: { type: Date, default: Date.now() },
-  likes: { type: Number, default: 0 },
-}).required() //This removes the need to add required to each property individually
+  userId: { type: String, required: true },
+  title: { type: String, required: true },
+  description: { type: String, default: '', required: true },
+  addedOn: { type: Date, default: Date.now(), required: true },
+  likes: { type: Number, default: 0, required: true },
+})
 
 const postModel = mongoose.model('Post', postSchema, 'postCollection')
 
-module.exports =  postModel
+module.exports = postModel

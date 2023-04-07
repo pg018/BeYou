@@ -5,9 +5,13 @@ class JWTService {
     return jwt.sign(payload, 'secretKey', { expiresIn: 3600000 }) // 1hr
   }
 
+  static GetDecodedToken(token) {
+    return jwt.decode(token, {json: true})
+  }
+
   static VerifyPayload(tokenPayload) {
     try {
-      const verifiedToken = jwt.decode(tokenPayload, { json: true })
+      const verifiedToken = jwt.decode(tokenPayload, {json: true})
       if (!verifiedToken) {
         return undefined
       }
