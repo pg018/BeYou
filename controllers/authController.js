@@ -56,14 +56,14 @@ const postRegister = async (req, res) => {
     console.log(req.body.pass1)
     const hashedPassword = await EncryptionService.EncryptString(req.body.pass1)
     const finalObject = {
-      name: req.body.username,
+      username: req.body.username,
       emailId: req.body.email,
       password: hashedPassword,
     }
     await userModel(finalObject).save()
     return res
       .status(200)
-      .redirect('./Pages/login', { errorMessage: '', showError: false })
+      .redirect('./Pages/login')
   } catch (err) {
     console.log(err)
     return res.render('./Pages/signUp', { error: 0 })

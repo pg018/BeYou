@@ -6,6 +6,8 @@ const mongoose = require('mongoose')
 const errorHandlingMiddleware = require('./middlewares/ErrorHandlerMiddleware')
 const authRouter = require('./routes/authRoutes')
 const postsRouter = require('./routes/postRoutes')
+const profileRouter = require('./routes/profileRoutes')
+const notificationRouter = require('./routes/notificationRoutes')
 const authMiddleware = require('./middlewares/authorizationMiddleware')
 const app = express()
 
@@ -23,6 +25,8 @@ app.get('/', (req, res) => {
   res.render('./Pages/home')
 })
 app.use('/auth', authRouter)
+app.use('/profile', authMiddleware.verifyLogin, profileRouter)
+app.use('/notification', authMiddleware.verifyLogin, notificationRouter)
 app.use('/post', authMiddleware.verifyLogin, postsRouter)
 
 app.all('*', (req, res) => {
