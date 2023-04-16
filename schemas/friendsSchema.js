@@ -1,9 +1,9 @@
 const mongoose = require('mongoose')
 
 const friendsSchema = new mongoose.Schema({
-  userId: { type: String },
-  followingUserId: { type: String },
-}).required()
+  userId: { type: String, required: true },
+  followingUserId: { type: String, required: true },
+})
 
 const friendsModel = mongoose.model(
   'Friends',

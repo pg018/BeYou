@@ -9,12 +9,15 @@
             <hr class="text-purple-600 border-b-1 border-purple-600">
             <div class="box-border">
                 <div class="follow__wrapper bg-white transition-colors duration-1000 dark:bg-black text-black dark:text-gray-200 flex flex-col gap-y-3">
-                    <%- include("../Partials/followCard.ejs", {profileImage:"https://images.unsplash.com/photo-1578979879663-4ba6a968a50a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8YmVhdXRpZnVsJTIwZ2lybHN8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60" , name: "fury" }) %>
-                    <%- include("../Partials/followCard.ejs", {profileImage:"https://images.unsplash.com/photo-1519011985187-444d62641929?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8YmVhdXRpZnVsJTIwZ2lybHN8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60" , name: "Danny"}) %>
-                    <%- include("../Partials/followCard.ejs", {profileImage:"https://images.unsplash.com/photo-1603771550805-abcf98e420e7?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTV8fGJlYXV0aWZ1bCUyMGdpcmxzfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60" , name: "Mary"}) %>
-                    <%- include("../Partials/followCard.ejs", {profileImage:"https://images.unsplash.com/photo-1624704765325-fd4868c9702e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8dHJvbXNvfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60" , name: "Levi"}) %>
-                    <%- include("../Partials/followCard.ejs", {profileImage:"https://images.unsplash.com/photo-1533488069324-f9265c15d37f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTB8fHNpZ21hJTIwbWFsZXxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60" , name: "Gary"}) %>
-                    <%- include("../Partials/followCard.ejs", {profileImage:"https://images.unsplash.com/photo-1522529599102-193c0d76b5b6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8bmlnZ2F8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60" , name: "Harry"}) %>
+                    <% suggestedFriends.forEach(friend => { %>
+                        <%- include('../Partials/followCard.ejs', {
+                            name: friend.username,
+                            userId: friend.stringId,
+                            alreadyFollowing: friend.alreadyFollowing,
+                            profileImage: 'https://images.unsplash.com/photo-1578979879663-4ba6a968a50a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8YmVhdXRpZnVsJTIwZ2lybHN8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60',
+                            })
+                        %>
+                    <% }) %>
                 </div>
             </div>
             <div class="thoughts bg-[#f9f9f9] dark:bg-[#131313] transition-colors duration-1000 text-black dark:text-gray-200">

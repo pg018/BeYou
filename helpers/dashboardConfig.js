@@ -22,6 +22,7 @@ const dashboardConfig = async (jwtCookie, main, title) => {
         showPostButton: false,
         postButtonTimeRemaining: timeDiff.toString(),
         userData: {},
+        suggestedFriends: [],
         userPosts: []
       }
     }
@@ -31,6 +32,7 @@ const dashboardConfig = async (jwtCookie, main, title) => {
     title,
     showPostButton: true,
     postButtonTimeRemaining: '',
+    suggestedFriends: [],
     userData: {},
     userPosts: []
   }
