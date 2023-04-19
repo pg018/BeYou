@@ -63,7 +63,7 @@ const postRegister = async (req, res) => {
     await userModel(finalObject).save()
     return res
       .status(200)
-      .redirect('./Pages/login')
+      .redirect('/Pages/login')
   } catch (err) {
     console.log(err)
     return res.render('./Pages/signUp', { error: 0 })
