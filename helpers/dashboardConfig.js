@@ -24,7 +24,9 @@ const dashboardConfig = async (jwtCookie, main, title) => {
         userData: {},
         suggestedFriends: [],
         userPosts: [],
-        mainFeedPosts: []
+        mainFeedPosts: [],
+        otherUserData: {},
+        otherUserPostsData: [],
       }
     }
   }
@@ -36,7 +38,9 @@ const dashboardConfig = async (jwtCookie, main, title) => {
     suggestedFriends: [],
     userData: {},
     userPosts: [],
-    mainFeedPosts: []
+    mainFeedPosts: [],
+    otherUserData: {},
+    otherUserPostsData: [],
   }
 }
 

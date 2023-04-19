@@ -4,9 +4,12 @@
             <img src=<%= profileImage %> alt="">
         </div>
         <div class="follow__details bg-[#f7f7f7] dark:bg-[#121212] transition-colors duration-1000">
-            <span class="follow__name text-black dark:text-white transition-colors duration-1000 cursor-pointer">
+            <a 
+                href="/profile/userProfile/<%= userId %>"
+                class="follow__name text-black hover:text-violet-500 dark:text-white transition-colors duration-1000 cursor-pointer"
+            >
                 <%= name %>
-            </span>
+            </a>
         </div>
     </div>
     <a href="/post/addFriend/<%= userId %>" class="px-4 py-1 bg-purple-700 text-zinc-200 mr-1 rounded-lg transition ease-in-out hover:scale-105 hover:bg-purple-600">
