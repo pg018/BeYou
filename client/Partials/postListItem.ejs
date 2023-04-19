@@ -4,7 +4,12 @@
             <img class="image_profile" src=<%= profileImage %> alt="">
         </div>
         <div class="leading-6">
-            <p><%= name %></p>
+            <a 
+                href="/profile/userProfile/<%= userId %>" 
+                class="hover:text-violet-500"
+            >
+                <%= name %>
+            </a>
             <p class="text-[12px]"><%= date %></p>
         </div>
     </div>
@@ -15,6 +20,9 @@
         </div>
         <div class="w-full ">
             <img class="w-full max-h-[450px] rounded-sm" src=<%= mainImage %> alt="">
+        </div>
+        <div>
+            <p><%= description %></p>
         </div>
     </div>
 

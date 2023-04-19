@@ -18,6 +18,10 @@ const followingList = (userList, followingList) => {
   })
 }
 
+const sortPostsByDescendingDate = (postList) => {
+  return postList.sort((a, b) => b.addedOn - a.addedOn)
+}
+
 const getPosts = async (req, res) => {
   const jwtCookie = req.cookies.jwt
   const userId = JWTService.GetDecodedToken(jwtCookie).userId
@@ -26,11 +30,30 @@ const getPosts = async (req, res) => {
   const usersList = await userModel.find({ _id: { $ne: userId } }) //except current user all users
   const alreadyFriends = await friendsModel.find({ userId })
   const finalSuggestedFriendsList = followingList(usersList, alreadyFriends)
+  console.log(finalSuggestedFriendsList)
+
+  const mainFeedPosts = []
+  // getting the following people's posts
+  for (const user of finalSuggestedFriendsList) {
+    if (user.alreadyFollowing) {
+      const thisUserPosts = await postModel.find({ userId: user.stringId }).lean().exec() //Converting mongo documents to json objects using lean() and exec() is used to execute it
+      if (thisUserPosts.length > 0) {
+        thisUserPosts.forEach((post) => {
+          post.username = user.username
+        })
+      }
+      mainFeedPosts.push(...thisUserPosts)
+    }
+  }
+
+  console.log(mainFeedPosts)
+
   //final config
   const config = await dashboardConfig(jwtCookie, './posts.ejs', 'Feed')
   return res.render('./Pages/dashboard', {
     ...config,
     suggestedFriends: finalSuggestedFriendsList,
+    mainFeedPosts: sortPostsByDescendingDate(mainFeedPosts),
   })
 }
 
