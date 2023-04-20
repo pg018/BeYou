@@ -9,7 +9,12 @@ const getProfile = async (req, res) => {
   const config = await dashboardConfig(jwtCookie, './profile.ejs', 'Profile')
   const userId = JWTService.GetDecodedToken(jwtCookie).userId
   const userData = await userModel.findById(userId)
-  const posts = await postModel.find({ userId: userId })
+  const posts = await postModel.find({ userId: userId }).lean().exec() //converting to json using lean()
+  posts.forEach((post) => {
+    //Checking if user has already, so that frontend like button can be colored
+    const isAlreadyLiked = post.likedBy.filter((x) => x === userId).length !== 0
+    post.isAlreadyLikedByThisUser = isAlreadyLiked
+  })
   if (!userData) {
     res.clearCookie('jwt')
     return res.redirect('/auth/login')
@@ -39,7 +44,12 @@ const getOtherUserProfile = async (req, res) => {
   if (!userData) {
     return res.render('./Pages/notFoundError')
   }
-  const userPosts = await postModel.find({ userId: userId })
+  const userPosts = await postModel.find({ userId: userId }).lean().exec()
+  userPosts.forEach((post) => {
+    const isAlreadyLiked = //Checking if user has already, so that frontend like button can be colored
+      post.likedBy.filter((x) => x === thisUserId).length !== 0
+    post.isAlreadyLikedByThisUser = isAlreadyLiked
+  })
   const isUserAlreadyFollowing = await friendsSchema.findOne({
     userId: thisUserId,
     followingUserId: userId,

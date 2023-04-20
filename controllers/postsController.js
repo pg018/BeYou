@@ -55,7 +55,10 @@ const getPosts = async (req, res) => {
         .exec() //Converting mongo documents to json objects using lean() and exec() is used to execute it
       if (thisUserPosts.length > 0) {
         thisUserPosts.forEach((post) => {
+          const isAlreadyLiked = //Checking if user has already, so that frontend like button can be colored
+            post.likedBy.filter((x) => x === userId).length !== 0
           post.username = user.username
+          post.isAlreadyLikedByThisUser = isAlreadyLiked
         })
       }
       mainFeedPosts.push(...thisUserPosts)
@@ -63,7 +66,9 @@ const getPosts = async (req, res) => {
   }
   const thisUserPosts = await postModel.find({ userId: userId }).lean().exec()
   thisUserPosts.forEach((post) => {
+    const isAlreadyLiked = post.likedBy.filter((x) => x === userId).length !== 0
     post.username = thisUserData.username
+    post.isAlreadyLikedByThisUser = isAlreadyLiked
   })
   mainFeedPosts.push(...thisUserPosts)
   //final config
