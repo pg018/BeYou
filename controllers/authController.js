@@ -49,7 +49,9 @@ const postLogin = async (req, res) => {
 
 const postRegister = async (req, res) => {
   try {
-    const isUserExist = await userModel.findOne({ emailId: req.body.email })
+    const isUserExist = await userModel.findOne({
+      $or: [{ emailId: req.body.email }, { username: req.body.username }],
+    })
     if (isUserExist) {
       return res.render('./Pages/signUp', { error: 1 })
     }
@@ -61,9 +63,7 @@ const postRegister = async (req, res) => {
       password: hashedPassword,
     }
     await userModel(finalObject).save()
-    return res
-      .status(200)
-      .redirect('/Pages/login')
+    return res.status(200).redirect('/auth/login')
   } catch (err) {
     console.log(err)
     return res.render('./Pages/signUp', { error: 0 })

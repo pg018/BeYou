@@ -6,6 +6,8 @@ const titleError = document.getElementById('titleError')
 const descriptionError = document.getElementById('descriptionError')
 
 addPostBtn.disabled = true
+titleError.style.display = 'none'
+descriptionError.style.display = 'none'
 
 const postTitleValidator = (inputValue) => {
   if (inputValue.length === 0) {

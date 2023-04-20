@@ -11,6 +11,12 @@ const userSchema = new mongoose.Schema({
   dateOfBirth: { type: Date, required: false },
   noFriends: { type: Number, default: 0, required: true },
   noFollowing: { type: Number, default: 0, required: true },
+  stringId: {type: String},
+})
+
+userSchema.pre('save', function(next) {
+  this.stringId = this._id.toString()
+  next()
 })
 
 //This creates a model that is used throughout the code. (ModelName, schema, collection name in database)

@@ -12,8 +12,7 @@ const followingList = (userList, followingList) => {
     )
     return {
       ...user.toJSON(),
-      alreadyFollowing: isAlreadyFollowing,
-      stringId: user._id.toString(),
+      alreadyFollowing: isAlreadyFollowing, //true or false
     }
   })
 }
@@ -26,9 +25,24 @@ const getPosts = async (req, res) => {
   const jwtCookie = req.cookies.jwt
   const userId = JWTService.GetDecodedToken(jwtCookie).userId
 
+  const peopleMayKnowPromise = new Promise((resolve) =>
+    resolve(userModel.find({ _id: { $ne: userId } })),
+  ) //except current user all users
+
+  const thisUserDataPromise = new Promise((resolve) =>
+    resolve(userModel.findById(userId)),
+  )
+
+  const alreadyFriendsPromise = new Promise((resolve) =>
+    resolve(friendsModel.find({ userId })),
+  )
+
   //getting users for "People You May Know"
-  const usersList = await userModel.find({ _id: { $ne: userId } }) //except current user all users
-  const alreadyFriends = await friendsModel.find({ userId })
+  const [thisUserData, usersList, alreadyFriends] = await Promise.all([
+    thisUserDataPromise,
+    peopleMayKnowPromise,
+    alreadyFriendsPromise,
+  ]) //parallelizing the api calls to fetch all data at once using 3 different calls
   const finalSuggestedFriendsList = followingList(usersList, alreadyFriends)
 
   const mainFeedPosts = []
@@ -47,7 +61,11 @@ const getPosts = async (req, res) => {
       mainFeedPosts.push(...thisUserPosts)
     }
   }
-
+  const thisUserPosts = await postModel.find({ userId: userId }).lean().exec()
+  thisUserPosts.forEach((post) => {
+    post.username = thisUserData.username
+  })
+  mainFeedPosts.push(...thisUserPosts)
   //final config
   const config = await dashboardConfig(jwtCookie, './posts.ejs', 'Feed')
   return res.render('./Pages/dashboard', {
