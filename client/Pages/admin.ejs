@@ -1,11 +1,15 @@
 <!DOCTYPE html>
-<html lang="en" >
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Login</title>
-    <link rel="shortcut icon" href="/../Sources/favicon.ico" type="image/x-icon">
+    <link
+      rel="shortcut icon"
+      href="/../Sources/favicon.ico"
+      type="image/x-icon"
+    />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
@@ -21,131 +25,102 @@
     />
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="/../tailwind.config.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
     <link rel="stylesheet" href="/../styles/styles.css" />
     <link rel="stylesheet" href="/../styles/common.css" />
     <link rel="stylesheet" href="/../styles/DarkLightButton.css" />
     <link rel="stylesheet" href="/../styles/admin.css" />
   </head>
 
-  <body>
+  <body class="dark:bg-[#121212] bg-[#dfdfdf] transition-colors duration-1000">
     <%- include ('../Partials/navbar.ejs') %>
-    
-    <section class="w-100 h-screen dark:bg-[#121212] bg-[#dfdfdf] transition-colors duration-1000">
-        
-     
-        <div class="main-container">
-            
-            <div class="main">
-     
-                <div class="searchbar2">
-                    <input type="text"
-                           name=""
-                           id=""
-                           placeholder="Search">
-                    <div class="searchbtn">
-                      <img src=
-    "https://media.geeksforgeeks.org/wp-content/uploads/20221210180758/Untitled-design-(28).png"
-                            class="icn srchicn"
-                            alt="search-button">
-                      </div>
-                </div>
-     
-                <div class="box-container">
-     
-                    <div class="box box1">
-                        <div class="text">
-                            <h2 class="topic-heading">7784</h2>
-                            <h2 class="topic">Accounts Monitored</h2>
-                        </div>
-     
-                        <img src=
-    "https://media.geeksforgeeks.org/wp-content/uploads/20221210184645/Untitled-design-(31).png"
-                            alt="Views">
-                    </div>
-     
-                    
-     
-                    <div class="box box3">
-                        <div class="text">
-                            <h2 class="topic-heading">117</h2>
-                            <h2 class="topic">Accounts Blocked</h2>
-                        </div>
-     
-                        <img src=
-    "https://media.geeksforgeeks.org/wp-content/uploads/20221210184645/Untitled-design-(32).png"
-                            alt="comments">
-                    </div>
-     
-                    <div class="box box4">
-                        <div class="text">
-                            <h2 class="topic-heading">170</h2>
-                            <h2 class="topic">Accounts Verified</h2>
-                        </div>
-     
-                        <img src=
-    "https://media.geeksforgeeks.org/wp-content/uploads/20221210185029/13.png" alt="published">
-                    </div>
-                </div>
-     
-                <div class="report-container bg-[#f7f7f7] dark:bg-[#121212] text-black dark:text-white transition-colors duration-1000">
-                    <div class="report-header bg-[#f7f7f7] dark:bg-[#121212] transition-colors duration-1000">
-                        <h1 class="recent-Articles ">Recent Articles</h1>
-                        <button class="view ">View All</button>
-                    </div>
-     
-                    <div class="report-body">
-                        <div class="report-topic-heading ">
-                            <h3 class="t-op">Article</h3>
-                            <h3 class="t-op">Views</h3>
-                            <h3 class="t-op">Comments</h3>
-                            <h3 class="t-op">Status</h3>
-                        </div>
-     
-                        <div class="items ">
-                            <div class="item1">
-                                <h3 class="t-op-nextlvl">Article 73</h3>
-                                <h3 class="t-op-nextlvl">2.9k</h3>
-                                <h3 class="t-op-nextlvl">210</h3>
-                                <h3 class="t-op-nextlvl label-tag">Published</h3>
-                            </div>
-     
-                            <div class="item1">
-                                <h3 class="t-op-nextlvl">Article 72</h3>
-                                <h3 class="t-op-nextlvl">1.5k</h3>
-                                <h3 class="t-op-nextlvl">360</h3>
-                                <h3 class="t-op-nextlvl label-tag">Published</h3>
-                            </div>
-     
-                           
-                            <div class="item1">
-                                <h3 class="t-op-nextlvl">Article 66</h3>
-                                <h3 class="t-op-nextlvl">3.6k</h3>
-                                <h3 class="t-op-nextlvl">160</h3>
-                                <h3 class="t-op-nextlvl label-tag">Published</h3>
-                            </div>
-     
-                            <div class="item1">
-                                <h3 class="t-op-nextlvl">Article 65</h3>
-                                <h3 class="t-op-nextlvl">1.3k</h3>
-                                <h3 class="t-op-nextlvl">220</h3>
-                                <h3 class="t-op-nextlvl label-tag">Published</h3>
-                            </div>
-     
-                        </div>
-                    </div>
-                </div>
+
+    <div class="main-container">
+      <div class="main">
+        <div class="box-container">
+          <div class="box ">
+            <div class="text">
+              <h2 class="topic-heading">
+                7784 <i class="fa-sharp fa-solid fa-desktop"></i>
+              </h2>
+              <h2 class="topic">Accounts Monitored</h2>
             </div>
+          </div>
+
+          <div class="box ">
+            <div class="text">
+              <h2 class="topic-heading">
+                117 <i class="fa-sharp fa-solid fa-ban"></i>
+              </h2>
+              <h2 class="topic">Accounts Blocked</h2>
+            </div>
+          </div>
+
+          <div class="box">
+            <div class="text">
+              <h2 class="topic-heading">
+                170 <i class="fa-solid fa-circle-check"></i>
+              </h2>
+              <h2 class="topic">Accounts Verified</h2>
+            </div>
+          </div>
         </div>
-     
-        
-    
 
-    </section>
+        <div
+          class="report-container bg-[#f7f7f7] dark:bg-[#0f0f0f] text-black dark:text-white transition-colors duration-1000"
+        >
+          <div
+            class="report-header bg-[#f7f7f7] dark:bg-[#0f0f0f] transition-colors duration-1000"
+          >
+            <h1 class="recent-Articles">Recent Articles</h1>
+          </div>
 
+          <div class="report-body">
+            <div class="heading_rep">
+              <h3 class="t-op">Article</h3>
+              <h3 class="t-op">Comments</h3>
+              <h3 class="t-op">Status</h3>
+            </div>
+
+            <div class="items">
+              <div class="item1">
+                <h3 class="t-op-nextlvl">Article 73</h3>
+                <h3 class="t-op-nextlvl">210</h3>
+                <h3 class="t-op-nextlvl label-tag">Published</h3>
+              </div>
+
+              <div class="item1">
+                <h3 class="t-op-nextlvl">Article 72</h3>
+                <h3 class="t-op-nextlvl">360</h3>
+                <h3 class="t-op-nextlvl label-tag">Published</h3>
+              </div>
+
+              <div class="item1">
+                <h3 class="t-op-nextlvl">Article 66</h3>
+                <h3 class="t-op-nextlvl">160</h3>
+                <h3 class="t-op-nextlvl label-tag">Published</h3>
+              </div>
+
+              <div class="item1">
+                <h3 class="t-op-nextlvl">Article 65</h3>
+                <h3 class="t-op-nextlvl">220</h3>
+                <h3 class="t-op-nextlvl label-tag">Published</h3>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <script src="/../javascript/helpers/UserHelpers.js"></script>
     <script src="/../javascript/helpers/LoginSignUpHelpers.js"></script>
     <script src="/../javascript/Login.js"></script>
     <script src="/../javascript/DarkLighButton.js"></script>
-</body>
+  </body>
 </html>

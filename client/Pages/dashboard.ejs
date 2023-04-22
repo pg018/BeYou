@@ -41,6 +41,13 @@
     <link rel="stylesheet" href="/styles/followListItem.css" />
     <link rel="stylesheet" href="/../styles/editProfile.css" />
     <link rel="stylesheet" href="/styles/chat.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
   </head>
 
   <body class="bg-[#fff] dark:bg-black transition-colors duration-1000">
@@ -120,11 +127,10 @@
                   data-dropdown-toggle="dropdown-user"
                 >
                   <span class="sr-only">Open user menu</span>
-                  <img
-                    class="w-8 h-8 rounded-full"
-                    src="<%= userData.profileImage ? userData.profileImage : "https://virtualpiano.net/wp-content/uploads/2020/08/Dua-Lipa-Artist-Online-Piano-Keyboard-Virtual-Piano.jpg"   %>"
-                    alt="user photo"
-                  />
+                  <img class="w-8 h-8 rounded-full" src="<%=
+                  userData.profileImage ? userData.profileImage :
+                  "https://virtualpiano.net/wp-content/uploads/2020/08/Dua-Lipa-Artist-Online-Piano-Keyboard-Virtual-Piano.jpg"
+                  %>" alt="user photo" />
                 </button>
               </div>
               <div class="sm:pl-5 pl-2">
@@ -298,6 +304,20 @@
               <span class="flex-1 ml-3 whitespace-nowrap">Account</span>
             </a>
           </li>
+          <% if(admin){ %>
+          <li>
+            <a
+              href="/admin"
+              class="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
+            >
+              <div class="ml-[2px] text-gray-800 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white">
+                <i class="fa-solid fa-shield-halved fa-lg"></i>
+              </div>
+
+              <span class="flex-1 ml-3 whitespace-nowrap">Admin</span>
+            </a>
+          </li>
+          <% } %>
         </ul>
       </div>
     </aside>
