@@ -10,10 +10,12 @@ const userSchema = new mongoose.Schema({
   dateOfBirth: { type: Date, required: false },
   noFriends: { type: Number, default: 0, required: true },
   noFollowing: { type: Number, default: 0, required: true },
-  stringId: {type: String},
+  stringId: { type: String },
+  profileImage: { type: String, default: '' },
+  admin: {type: Boolean, default: false}
 })
 
-userSchema.pre('save', function(next) {
+userSchema.pre('save', function (next) {
   this.stringId = this._id.toString()
   next()
 })

@@ -7,10 +7,11 @@ const postSchema = new mongoose.Schema({
   addedOn: { type: Date, default: Date.now(), required: true },
   likes: { type: Number, default: 0, required: true },
   likedBy: { type: [String], default: [], required: true },
-  stringId: {type: String},
+  stringId: { type: String },
+  uploadedImages: { type: String, default: ""},
 })
 
-postSchema.pre('save', function(next){
+postSchema.pre('save', function (next) {
   this.stringId = this._id.toString()
   next()
 })

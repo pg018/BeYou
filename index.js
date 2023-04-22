@@ -29,6 +29,11 @@ app.use('/profile', authMiddleware.verifyLogin, profileRouter)
 app.use('/notification', authMiddleware.verifyLogin, notificationRouter)
 app.use('/post', authMiddleware.verifyLogin, postsRouter)
 
+app.use('/admin', (req, res, next)=>{
+  return res.render('./Pages/admin')
+})
+
+
 app.all('*', (req, res) => {
   res.render('./Pages/notFoundError')
 })
