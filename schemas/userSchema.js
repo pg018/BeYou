@@ -2,8 +2,7 @@ const mongoose = require('mongoose')
 
 //This is the main schema of the userCollections
 const userSchema = new mongoose.Schema({
-  name: { type: String, required: false },
-  username: { type: String, required: true, unique: true },
+  username: {type: String, required: true, unique: true},
   emailId: { type: String, required: true, unique: true },
   password: { type: String, required: true },
   lastPostedTime: { type: Date, required: false },
@@ -13,6 +12,7 @@ const userSchema = new mongoose.Schema({
   noFollowing: { type: Number, default: 0, required: true },
   stringId: { type: String },
   profileImage: { type: String, default: '' },
+  gender: {type: String, default: "male"},
   admin: {type: Boolean, default: false}
 })
 
