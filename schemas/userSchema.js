@@ -2,7 +2,6 @@ const mongoose = require('mongoose')
 
 //This is the main schema of the userCollections
 const userSchema = new mongoose.Schema({
-  name: { type: String, required: false },
   username: {type: String, required: true, unique: true},
   emailId: { type: String, required: true, unique: true },
   password: { type: String, required: true },
