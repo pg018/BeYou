@@ -12,7 +12,8 @@ const userSchema = new mongoose.Schema({
   noFriends: { type: Number, default: 0, required: true },
   noFollowing: { type: Number, default: 0, required: true },
   stringId: { type: String },
-  profileImage: { type: String, default: '', required: true },
+  profileImage: { type: String, default: '' },
+  admin: {type: Boolean, default: false}
 })
 
 userSchema.pre('save', function (next) {
