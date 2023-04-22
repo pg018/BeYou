@@ -113,7 +113,20 @@ const getEditProfile = async (req, res) => {
     './editProfile.ejs',
     'Edit Profile',
   )
+  
+  const userId = JWTService.GetDecodedToken(jwtCookie).userId;
+  const user = await userModel.findById(userId).select("username profileImage -_id emailId dateOfBirth description gender");
+  config.userData = user;
+  console.log(config);
   return res.render('./Pages/dashboard', { ...config })
+}
+
+const postEditProfile = async (req, res) => {
+  const jwtCookie = req.cookies.jwt;
+  const userId = JWTService.GetDecodedToken(jwtCookie).userId;
+  const updatedUser = await userModel.findOneAndUpdate({_id: userId}, {...req.body}, {new: true});
+
+  return res.redirect("/profile/editProfile")
 }
 
 const profileController = {
@@ -121,6 +134,7 @@ const profileController = {
   getEditProfile,
   getOtherUserProfile,
   likePost,
+  postEditProfile,
 }
 
 module.exports = profileController

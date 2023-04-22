@@ -12,6 +12,7 @@ const userSchema = new mongoose.Schema({
   noFollowing: { type: Number, default: 0, required: true },
   stringId: { type: String },
   profileImage: { type: String, default: '' },
+  gender: {type: String, default: "male"},
   admin: {type: Boolean, default: false}
 })
 
