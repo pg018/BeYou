@@ -24,6 +24,7 @@ const getProfile = async (req, res) => {
     description: userData.description ? userData.description : '',
     noFriends: userData.noFriends,
     noFollowing: userData.noFollowing,
+    profileImage: userData.profileImage
   }
   return res.render('./Pages/dashboard', {
     ...config,
@@ -117,14 +118,19 @@ const getEditProfile = async (req, res) => {
   const userId = JWTService.GetDecodedToken(jwtCookie).userId;
   const user = await userModel.findById(userId).select("username profileImage -_id emailId dateOfBirth description gender");
   config.userData = user;
-  console.log(config);
   return res.render('./Pages/dashboard', { ...config })
 }
 
 const postEditProfile = async (req, res) => {
+  console.log(req.body);
+  const userData = req.body;
   const jwtCookie = req.cookies.jwt;
   const userId = JWTService.GetDecodedToken(jwtCookie).userId;
-  const updatedUser = await userModel.findOneAndUpdate({_id: userId}, {...req.body}, {new: true});
+  if (!userData.profileImage) {
+    delete userData.profileImage;
+  }
+
+  const updatedUser = await userModel.findOneAndUpdate({_id: userId}, {...userData}, {new: true});
 
   return res.redirect("/profile/editProfile")
 }

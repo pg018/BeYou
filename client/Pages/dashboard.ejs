@@ -122,7 +122,7 @@
                   <span class="sr-only">Open user menu</span>
                   <img
                     class="w-8 h-8 rounded-full"
-                    src="https://virtualpiano.net/wp-content/uploads/2020/08/Dua-Lipa-Artist-Online-Piano-Keyboard-Virtual-Piano.jpg"
+                    src="<%= userData.profileImage ? userData.profileImage : "https://virtualpiano.net/wp-content/uploads/2020/08/Dua-Lipa-Artist-Online-Piano-Keyboard-Virtual-Piano.jpg"   %>"
                     alt="user photo"
                   />
                 </button>
@@ -335,5 +335,7 @@
     ></script>
     <script src="/../javascript/addPost.js"></script>
     <script src="/../javascript/helpers/UserHelpers.js"></script>
+    <script src="/javascript/helpers/convertToBase64.js"></script>
+    <script src="/javascript/editProfile.js"></script>
   </body>
 </html>

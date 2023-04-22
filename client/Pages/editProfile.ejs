@@ -3,13 +3,14 @@
         <form method="post" action="/profile/editProfile" class="main-edit-profile bg-[#fff] dark:bg-[#000000] transition-colors duration-1000 text-black dark:text-gray-200 p-8 md:max-w-[75%] dark:shadow-sm dark:shadow-violet-700 flex flex-col justify-center gap-8">
             <div class="profimg inpp">
                 <label for="avatar">
-                    <img src="https://staticg.sportskeeda.com/editor/2022/07/aedcf-16570135965843.png"></image>
+                    <img id="profileImg" src="<%= userData.profileImage ? userData.profileImage : "https://staticg.sportskeeda.com/editor/2022/07/aedcf-16570135965843.png" %>"></image>
                 </label>
 
                 <input type="file"
-                id="avatar" name="profileImage"
+                id="avatar"
                 accept="image/png, image/jpeg" style="display: none;">                
-
+                
+                <input type="hidden" name="profileImage" id="realImage" /> 
                 <!-- <button class="block sm:block hidden transition ease-in-out hover:scale-105 text-white bg-purple-700 hover:text-gray-200 hover:bg-purple-600 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-6 py-1 text-center">Edit Pic</button> -->
             </div>
             <div class="user name inpp text-black dark:text-gray-200 ">
