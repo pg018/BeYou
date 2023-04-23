@@ -27,6 +27,7 @@ const dashboardConfig = async (jwtCookie, main, title) => {
         mainFeedPosts: [],
         otherUserData: {},
         otherUserPostsData: [],
+        editProfileError: '',
       }
     }
   }
@@ -41,6 +42,7 @@ const dashboardConfig = async (jwtCookie, main, title) => {
     mainFeedPosts: [],
     otherUserData: {},
     otherUserPostsData: [],
+    editProfileError: '',
   }
 }
 

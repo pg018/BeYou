@@ -50,7 +50,7 @@
         <% const formattedDate = new Date(post.addedOn).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) %>
         <%- include("./../Partials/postListItem.ejs", {
             title: post.title,
-            name: userData.username,
+            name: otherUserData.username,
             userId: post.userId,
             postId: post.stringId,
             likes: post.likes,
