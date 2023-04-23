@@ -7,6 +7,7 @@ const errorHandlingMiddleware = require('./middlewares/ErrorHandlerMiddleware')
 const authRouter = require('./routes/authRoutes')
 const postsRouter = require('./routes/postRoutes')
 const profileRouter = require('./routes/profileRoutes')
+const chatRouter = require("./routes/chatRoutes");
 const notificationRouter = require('./routes/notificationRoutes')
 const authMiddleware = require('./middlewares/authorizationMiddleware')
 const app = express()
@@ -30,6 +31,7 @@ app.use('/auth', authRouter)
 app.use('/profile', authMiddleware.verifyLogin, profileRouter)
 app.use('/notification', authMiddleware.verifyLogin, notificationRouter)
 app.use('/post', authMiddleware.verifyLogin, postsRouter)
+app.use('/chat', authMiddleware.verifyLogin, chatRouter);
 
 app.use('/admin', (req, res, next)=>{
   return res.render('./Pages/admin')

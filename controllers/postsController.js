@@ -61,6 +61,7 @@ const getPosts = async (req, res) => {
             post.likedBy.filter((x) => x === userId).length !== 0
           post.username = user.username
           post.isAlreadyLikedByThisUser = isAlreadyLiked
+          post.profileImage = user.profileImage
         })
       }
       mainFeedPosts.push(...thisUserPosts)
@@ -71,6 +72,7 @@ const getPosts = async (req, res) => {
     const isAlreadyLiked = post.likedBy.filter((x) => x === userId).length !== 0
     post.username = thisUserData.username
     post.isAlreadyLikedByThisUser = isAlreadyLiked
+    post.profileImage = thisUserData.profileImage
   })
   mainFeedPosts.push(...thisUserPosts)
   //final config
@@ -133,7 +135,7 @@ const postAddPost = async (req, res) => {
   const userId = JWTService.GetDecodedToken(jwtCookie).userId
   const postTitle = req.body.postTitle
   const postDescription = req.body.postDescription
-  const uploadedImages = req.body.uploadedImages;
+  const uploadedImages = req.body.uploadedImages.trim();
   const finalObject = {
     userId,
     title: postTitle,

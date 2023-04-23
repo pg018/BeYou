@@ -44,8 +44,9 @@
 
               <% if (error === 1) { %>
                 <h1 class="err-message">User Already Exists</h1>
+              <% } else if (error === 0) { %>
+                <h1 class="err-message">Something went Wrong</h1>
               <% } %>
-              
               <div class="mb-6 ">
                 <p class="error-message">Invalid Username</p>
                 <input

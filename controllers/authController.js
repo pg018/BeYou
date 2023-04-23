@@ -52,10 +52,13 @@ const postRegister = async (req, res) => {
     const isUserExist = await userModel.findOne({
       $or: [{ emailId: req.body.email }, { username: req.body.username }],
     })
+
     if (isUserExist) {
       return res.render('./Pages/signUp', { error: 1 })
     }
+
     console.log(req.body.pass1)
+    
     const hashedPassword = await EncryptionService.EncryptString(req.body.pass1)
     const finalObject = {
       username: req.body.username,

@@ -8,6 +8,7 @@ const descriptionError = document.getElementById('descriptionError')
 const postImagePicker = document.getElementById("postImagePicker");
 const postImageContainer = document.getElementById("postImageContainer");
 const postImagePreview = document.getElementById("postImagePreview");
+const addPostOverlay = document.getElementById("authentication-modal");
 
 addPostBtn.disabled = true
 titleError.style.display = 'none'
@@ -58,7 +59,22 @@ description.addEventListener('input', enableAddPostButton)
 
 
 postImagePicker.addEventListener("change", async (e) => {
-  const img = await convertToBase64(e.target.files[0]);
-  postImagePreview.setAttribute("src", img);
-  postImageContainer.value = img;
+  console.log("hiiiii")
+  const files = e.target.files;
+  for (let i = 0; i < files.length; i++) {
+    const img = await convertToBase64(e.target.files[i]);
+    const imgNode = document.createElement("img");
+    imgNode.setAttribute("src", img);
+    imgNode.classList.add(["h-[200px]", "max-w-full"]);
+    postImagePreview.appendChild(imgNode);
+    postImageContainer.value += `${img} `;
+  }
 });
+
+
+addPostOverlay.addEventListener("click", (e) => {
+  if (e.target.classList.contains("addPostClose")) {
+    postImagePreview.innerHTML = "";
+    postImageContainer.value = "";
+  }
+})
