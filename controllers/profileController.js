@@ -64,6 +64,7 @@ const getOtherUserProfile = async (req, res) => {
     noFollowing: userData.noFollowing,
     alreadyFollowing: isUserAlreadyFollowing ? true : false,
   }
+  userPosts.sort((a, b) => b.addedOn - a.addedOn) //sorting in descending order according to date added
   const config = await dashboardConfig(
     jwtCookie,
     './otherUserProfile.ejs',
@@ -126,21 +127,37 @@ const getEditProfile = async (req, res) => {
 }
 
 const postEditProfile = async (req, res) => {
-  console.log(req.body)
   const userData = req.body
   const jwtCookie = req.cookies.jwt
   const userId = JWTService.GetDecodedToken(jwtCookie).userId
   if (!userData.profileImage) {
     delete userData.profileImage
   }
+  if (!userData.dateOfBirth) {
+    delete userData.dateOfBirth
+  }
+  const isAlreadyExists = await userModel.findOne({
+    username: req.body.username,
+  })
+  if (isAlreadyExists && isAlreadyExists.stringId !== userId) {
+    const config = await dashboardConfig(
+      jwtCookie,
+      './editProfile.ejs',
+      'Edit Profile',
+    )
+    return res.render('./Pages/dashboard', {
+      ...config,
+      editProfileError: 'User name already Exists',
+    })
+  }
 
-  const updatedUser = await userModel.findOneAndUpdate(
+  await userModel.findOneAndUpdate(
     { _id: userId },
     { ...userData },
     { new: true },
   )
 
-  return res.redirect('/profile/editProfile')
+  return res.redirect('/profile')
 }
 
 const profileController = {
