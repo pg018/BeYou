@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+const commentSchema = require("./CommentSchema").commentSchema;
 
 const postSchema = new mongoose.Schema({
   userId: { type: String, required: true },
@@ -9,6 +10,7 @@ const postSchema = new mongoose.Schema({
   likedBy: { type: [String], default: [], required: true },
   stringId: { type: String },
   uploadedImages: { type: String, default: ""},
+  comments: {type: [commentSchema], default: []}
 })
 
 postSchema.pre('save', function (next) {

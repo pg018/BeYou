@@ -32,6 +32,8 @@ const dashboardConfig = async (jwtCookie, main, title) => {
         otherUserPostsData: [],
         editProfileError: '',
         notifications: [],
+        openedPost: {},
+        filteredUsersList: [],
       }
     }
   }
@@ -48,6 +50,8 @@ const dashboardConfig = async (jwtCookie, main, title) => {
     otherUserPostsData: [],
     editProfileError: '',
     notifications: [],
+    openedPost: {},
+    filteredUsersList: [],
   }
 }
 

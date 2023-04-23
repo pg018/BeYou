@@ -8,6 +8,7 @@ router.get('/editProfile', profileController.getEditProfile)
 router.get('/userProfile/:otherUserId', profileController.getOtherUserProfile)
 router.get('/likePost/:postId/:currentPage', profileController.likePost)
 router.post('/editProfile', profileController.postEditProfile)
+router.get('/search', profileController.searchProfile);
 
 
 module.exports = router

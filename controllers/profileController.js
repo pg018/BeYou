@@ -87,7 +87,10 @@ const likePost = async (req, res) => {
     returnPath = '/profile'
   } else if (req.params.currentPage === 'otherUser') {
     returnPath = `/profile/userProfile/${post.userId}`
+  } else if (req.params.currentPage === 'mainPost') {
+    returnPath = `/post/posts/${req.params.postId}`
   }
+
   const thisUserId = JWTService.GetDecodedToken(jwtCookie).userId //current userId
   if (!post) {
     return res.redirect(returnPath)
@@ -171,12 +174,30 @@ const postEditProfile = async (req, res) => {
   return res.redirect('/profile')
 }
 
+const searchProfile = async (req, res) => {
+  const jwtCookie = req.cookies.jwt
+  const userId = JWTService.GetDecodedToken(jwtCookie).userId
+  const config = await dashboardConfig(
+    jwtCookie,
+    './usersList.ejs',
+    'Searched Users',
+  )
+
+  const users = await userModel
+    .find({ username: { $regex: req.query.username, $options: 'i' } })
+    .select('-password -_id')
+  console.log(users)
+  config.filteredUsersList = users
+  return res.render('./Pages/dashboard', { ...config })
+}
+ 
 const profileController = {
   getProfile,
   getEditProfile,
   getOtherUserProfile,
   likePost,
   postEditProfile,
+  searchProfile,
 }
 
 module.exports = profileController

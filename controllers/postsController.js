@@ -155,10 +155,26 @@ const postAddPost = async (req, res) => {
   return res.redirect('/post/posts')
 }
 
+const getPost = async (req, res) => {
+  console.log(req.params);
+  const jwtCookie = req.cookies.jwt;
+  const userId = JWTService.GetDecodedToken(jwtCookie).userId;
+  const config = await dashboardConfig(jwtCookie, './postMain.ejs', 'Post');
+
+  const post = await postModel.findOne({stringId: req.params.postId}).lean().exec();
+  const isAlreadyLiked = //Checking if user has already, so that frontend like button can be colored
+            post.likedBy.filter((x) => x === userId).length !== 0  
+
+  config.openedPost = {...post, isAlreadyLikedByThisUser: isAlreadyLiked}
+
+  res.render("./Pages/dashboard", {...config});
+}
+
 const postsController = {
   getPosts,
   postAddPost,
   putAddFriend,
+  getPost
 }
 
 module.exports = postsController

@@ -13,26 +13,27 @@
 
 .postForm::-webkit-scrollbar,
 .feed::-webkit-scrollbar,
-.chatlist::-webkit-scrollbar 
+.chatlist::-webkit-scrollbar,
+.postMainContainer::-webkit-scrollbar
 {
-	width: 10px;
+	width: 6px;
 	background-color: #000;
   border-radius: 5px;
 }
 
-.postForm::-webkit-scrollbar,
 .feed::-webkit-scrollbar-track,
-.chatlist::-webkit-scrollbar-track
+.chatlist::-webkit-scrollbar-track,
+.postMainContainer::-webkit-scrollbar-track
 {
 	-webkit-box-shadow: inset 0px 0px 6px rgba(0,0,0,.3);
 	background-color: #706a6a;
 }
 
-.postForm::-webkit-scrollbar,
 .feed::-webkit-scrollbar-thumb,
-.chatlist::-webkit-scrollbar-thumb
+.chatlist::-webkit-scrollbar-thumb,
+.postMainContainer::-webkit-scrollbar-thumb
 {
-	background-color: #444;
+	background-color: #302e2e;
   border-radius: 5px;
 }
 
@@ -74,6 +75,9 @@
   margin-bottom: 4px;
 }
 
+.postMainContainer {
+  max-height: calc(100vh - 66px);
+}
 
 @media screen and (max-width: 640px) {
   .main-container {
