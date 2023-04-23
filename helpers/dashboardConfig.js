@@ -21,13 +21,17 @@ const dashboardConfig = async (jwtCookie, main, title) => {
         title,
         showPostButton: false,
         postButtonTimeRemaining: timeDiff.toString(),
-        userData: {profileImage: userInfo.profileImage},
+        userData: {
+          profileImage: userInfo.profileImage,
+          admin: userInfo?.admin,
+        },
         suggestedFriends: [],
         userPosts: [],
         mainFeedPosts: [],
         otherUserData: {},
         otherUserPostsData: [],
         editProfileError: '',
+        notifications: [],
       }
     }
   }
@@ -37,12 +41,13 @@ const dashboardConfig = async (jwtCookie, main, title) => {
     showPostButton: true,
     postButtonTimeRemaining: '',
     suggestedFriends: [],
-    userData: {profileImage: userInfo.profileImage},
+    userData: { profileImage: userInfo.profileImage, admin: userInfo?.admin },
     userPosts: [],
     mainFeedPosts: [],
     otherUserData: {},
     otherUserPostsData: [],
     editProfileError: '',
+    notifications: [],
   }
 }
 

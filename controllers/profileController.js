@@ -3,6 +3,7 @@ const JWTService = require('../services/JWTService')
 const userModel = require('../schemas/userSchema')
 const postModel = require('../schemas/postSchema')
 const friendsSchema = require('../schemas/friendsSchema')
+const notificationsModel = require('../schemas/notificationSchema')
 
 const getProfile = async (req, res) => {
   const jwtCookie = req.cookies.jwt
@@ -99,6 +100,16 @@ const likePost = async (req, res) => {
       { $push: { likedBy: thisUserId }, $inc: { likes: 1 } },
       { new: true },
     )
+    if (thisUserId !== post.userId) {
+      const notificationDocument = {
+        fromId: thisUserId,
+        toId: post.userId,
+        message: 'liked your post',
+        imageRequiredNotification: true,
+        likedPostId: post.stringId,
+      }
+      await notificationsModel(notificationDocument).save()
+    }
     return res.redirect(returnPath)
   }
   await postModel.updateOne(

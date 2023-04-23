@@ -2,6 +2,7 @@ const userModel = require('../schemas/userSchema')
 const postModel = require('../schemas/postSchema')
 const JWTService = require('../services/JWTService')
 const friendsModel = require('../schemas/friendsSchema')
+const notificationModel = require('../schemas/notificationSchema')
 const dashboardConfig = require('../helpers/dashboardConfig')
 
 //This function creates a new property for alreadyFollowing users by mapping usersCollection with FriendsCollection
@@ -24,7 +25,7 @@ const sortPostsByDescendingDate = (postList) => {
 const getPosts = async (req, res) => {
   const jwtCookie = req.cookies.jwt
   const userId = JWTService.GetDecodedToken(jwtCookie).userId
-  
+
   const peopleMayKnowPromise = new Promise((resolve) =>
     resolve(userModel.find({ _id: { $ne: userId } })),
   ) //except current user all users
@@ -32,7 +33,7 @@ const getPosts = async (req, res) => {
   const thisUserDataPromise = new Promise((resolve) =>
     resolve(userModel.findById(userId)),
   )
-  
+
   const alreadyFriendsPromise = new Promise((resolve) =>
     resolve(friendsModel.find({ userId })),
   )
@@ -42,11 +43,11 @@ const getPosts = async (req, res) => {
     thisUserDataPromise,
     peopleMayKnowPromise,
     alreadyFriendsPromise,
-  ]) 
-  
+  ])
+
   //parallelizing the api calls to fetch all data at once using 3 different calls
   const finalSuggestedFriendsList = followingList(usersList, alreadyFriends)
-  
+
   const mainFeedPosts = []
   // getting the following people's posts
   for (const user of finalSuggestedFriendsList) {
@@ -126,21 +127,28 @@ const putAddFriend = async (req, res) => {
     { $inc: { noFriends: 1 } },
     { new: true },
   )
+  const notificationDocument = {
+    fromId: userId,
+    toId: friendUserId,
+    message: 'started following you',
+    imageRequiredNotification: true,
+  }
+  await notificationModel(notificationDocument).save()
   return res.redirect('/post/posts')
 }
 
 const postAddPost = async (req, res) => {
-  console.log(req.body);
+  console.log(req.body)
   const jwtCookie = req.cookies.jwt
   const userId = JWTService.GetDecodedToken(jwtCookie).userId
   const postTitle = req.body.postTitle
   const postDescription = req.body.postDescription
-  const uploadedImages = req.body.uploadedImages.trim();
+  const uploadedImages = req.body.uploadedImages.trim()
   const finalObject = {
     userId,
     title: postTitle,
     description: postDescription,
-    uploadedImages: uploadedImages
+    uploadedImages: uploadedImages,
   }
   await postModel(finalObject).save()
   await userModel.findByIdAndUpdate(userId, { lastPostedTime: new Date() })

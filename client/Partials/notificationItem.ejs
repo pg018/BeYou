@@ -1,6 +1,39 @@
-<a href = "#" class="shadow-sm transition-colors duration-1000 bg-[#f7f7f7] dark:bg-[#121212] shadow-black dark:shadow-gray-600 p-2 hover:bg-zinc-300 dark:hover:bg-zinc-900 hover:shadow-none rounded-md sm:m-0 mx-8">
-    <div class="notif__container">
-        <img class="rounded-full w-10 h-10 mr-2" src="https://images.unsplash.com/photo-1679189789181-06448aa7c382?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwyNHx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=60" alt="notification-image">
-        <p class="text-black dark:text-white leading-8">You have a notification from @123 Lorem ipsum dolor sit amet consectetur adipisicing elit. Obcaecati delectus facilis temporibus. Ea eveniet, perferendis doloribus voluptatem illo tempora dolore quae et omnis, animi voluptas cupiditate consectetur error ullam totam qui enim. Tempora, molestiae natus odit animi eaque acc</p>
+<div
+  href="#"
+  class="shadow-sm transition-colors duration-1000 bg-[#f7f7f7] dark:bg-[#121212] shadow-black dark:shadow-gray-600 p-2 hover:bg-zinc-300 dark:hover:bg-zinc-900 hover:shadow-none rounded-md sm:m-0 mx-8"
+>
+  <div class="flex flex-row justify-between items-center">
+    <div class="notif__container items-center">
+      <% if (imageRequired) { %>
+        <a href="/profile/userProfile/<%= fromUserId %>">
+            <img
+            class="rounded-full w-10 h-10 mr-2"
+            src="<%= image %>"
+            alt="notification-image"
+            />
+        </a>
+      <% } %>
+      <p class="text-black dark:text-white leading-8">
+        <% if (imageRequired) { %>
+            <a
+            style="font-weight: 800"
+            href="/profile/userProfile/<%= fromUserId %>"
+            >
+            <%= fromUserUsername %>
+            </a>
+        <% } %> 
+        <%= message %>
+      </p>
+      <% if (likedImage) { %>
+        <div>
+            <img src="<%= likedImage %>" alt="likedimage" class="w-10 h-10 mr-2 ms-2" />
+        </div>
+      <% } %>
     </div>
-</a>
+    <div>
+        <p class="text-black dark:text-white leading-8">
+            <%= date %>
+        </p>
+    </div>
+  </div>
+</div>
