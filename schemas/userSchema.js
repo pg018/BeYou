@@ -13,7 +13,9 @@ const userSchema = new mongoose.Schema({
   stringId: { type: String },
   profileImage: { type: String, default: '' },
   gender: {type: String, default: "male"},
-  admin: {type: Boolean, default: false}
+  admin: {type: Boolean, default: false},
+  verified:{type: Boolean, default: false},
+  blocked: {type: Boolean, default: false},
 })
 
 userSchema.pre('save', function (next) {

@@ -5,16 +5,16 @@ const cookieParser = require('cookie-parser')
 const mongoose = require('mongoose')
 const errorHandlingMiddleware = require('./middlewares/ErrorHandlerMiddleware')
 const authRouter = require('./routes/authRoutes')
+const adminRouter = require('./routes/adminRoutes')
 const postsRouter = require('./routes/postRoutes')
 const profileRouter = require('./routes/profileRoutes')
-const chatRouter = require("./routes/chatRoutes");
+const chatRouter = require('./routes/chatRoutes')
 const notificationRouter = require('./routes/notificationRoutes')
 const authMiddleware = require('./middlewares/authorizationMiddleware')
 const app = express()
 
-
-app.use(bodyParser.urlencoded({ limit: "50mb", extended: true }))
-app.use(express.json({limit: "10MB"}))
+app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }))
+app.use(express.json({ limit: '10MB' }))
 app.set('view engine', 'ejs')
 app.set('views', path.join(__dirname, '/client'))
 
@@ -31,12 +31,8 @@ app.use('/auth', authRouter)
 app.use('/profile', authMiddleware.verifyLogin, profileRouter)
 app.use('/notification', authMiddleware.verifyLogin, notificationRouter)
 app.use('/post', authMiddleware.verifyLogin, postsRouter)
-app.use('/chat', authMiddleware.verifyLogin, chatRouter);
-
-app.use('/admin', (req, res, next)=>{
-  return res.render('./Pages/admin')
-})
-
+app.use('/chat', authMiddleware.verifyLogin, chatRouter)
+app.use('/admin', authMiddleware.verifyLogin, adminRouter)
 
 app.all('*', (req, res) => {
   res.render('./Pages/notFoundError')

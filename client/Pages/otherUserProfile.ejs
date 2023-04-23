@@ -36,14 +36,17 @@
     </div>
   </div>
   <hr class="style2" />
-  <div class="mt-2 flex flex-col justify-center block transition ease-in-out hover:scale-105 text-white bg-purple-700 hover:text-gray-200 hover:bg-purple-600 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-6 py-1 text-center">
-    <a class="w-full text-center" href="/post/addFriend/<%= otherUserData.userId %>">
+  <div class="follow__other">
+    <a class=" mt-2  transition ease-in-out hover:scale-105 text-white bg-purple-700 hover:text-gray-200 hover:bg-purple-600 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm follow__otherbtn mx-2 py-1 text-center" href="/post/addFriend/<%= otherUserData.userId %>">
         <% if (otherUserData.alreadyFollowing) { %>
             Following
         <% } else { %>
             Follow
         <% } %> 
     </a>
+    <a class=" mt-2  transition ease-in-out hover:scale-105 text-white bg-purple-700 hover:text-gray-200 hover:bg-purple-600 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm follow__otherbtn mx-2 py-1 text-center" href="/admin/report/<%=otherUserData.userId %>">
+      Report
+  </a>
   </div>
     <div class="myposts">
       <% otherUserPostsData.forEach(post => { %>
