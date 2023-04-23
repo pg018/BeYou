@@ -24,7 +24,7 @@ const sortPostsByDescendingDate = (postList) => {
 const getPosts = async (req, res) => {
   const jwtCookie = req.cookies.jwt
   const userId = JWTService.GetDecodedToken(jwtCookie).userId
-
+  
   const peopleMayKnowPromise = new Promise((resolve) =>
     resolve(userModel.find({ _id: { $ne: userId } })),
   ) //except current user all users
@@ -32,7 +32,7 @@ const getPosts = async (req, res) => {
   const thisUserDataPromise = new Promise((resolve) =>
     resolve(userModel.findById(userId)),
   )
-
+  
   const alreadyFriendsPromise = new Promise((resolve) =>
     resolve(friendsModel.find({ userId })),
   )
@@ -42,9 +42,11 @@ const getPosts = async (req, res) => {
     thisUserDataPromise,
     peopleMayKnowPromise,
     alreadyFriendsPromise,
-  ]) //parallelizing the api calls to fetch all data at once using 3 different calls
+  ]) 
+  
+  //parallelizing the api calls to fetch all data at once using 3 different calls
   const finalSuggestedFriendsList = followingList(usersList, alreadyFriends)
-
+  
   const mainFeedPosts = []
   // getting the following people's posts
   for (const user of finalSuggestedFriendsList) {
@@ -77,6 +79,7 @@ const getPosts = async (req, res) => {
     ...config,
     suggestedFriends: finalSuggestedFriendsList,
     mainFeedPosts: sortPostsByDescendingDate(mainFeedPosts),
+    userData: thisUserData,
   })
 }
 
