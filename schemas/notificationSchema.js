@@ -5,6 +5,8 @@ const notificationSchema = new mongoose.Schema({
   fromId: { type: String, required: true },
   toId: { type: String, required: true },
   message: { type: String, required: true },
+  imageRequiredNotification: { type: Boolean, default: false, required: true },
+  likedPostId: { type: String, default: null, required: false },
 })
 
 notificationSchema.index({ createdAt: 1 }, { expireAfterSeconds: 604800 }) //7days
