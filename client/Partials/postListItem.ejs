@@ -19,7 +19,7 @@
             <h1 class="text-md sm:text-xl"><%= title %></h1>
         </div>
         <div class="w-full ">
-            <img class="w-full max-h-[450px] rounded-sm" src=<%= mainImage %> alt="">
+            <img class="w-full max-h-[450px] rounded-sm <%= mainImage ? null : 'hidden' %>" src=<%= mainImage %> alt="">
         </div>
         <div>
             <p><%= description %></p>

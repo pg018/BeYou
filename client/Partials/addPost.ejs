@@ -1,20 +1,18 @@
 <!-- Modal toggle -->
 <% if (showPostButton) { %>
-  <button
-    data-modal-target="authentication-modal"
-    data-modal-toggle="authentication-modal"
-    class="block sm:block hidden transition ease-in-out hover:scale-105 text-white bg-purple-700 hover:text-gray-200 hover:bg-purple-600 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-6 py-1 text-center"
-    type="button"
-  >
-    POST
-  </button>
+<button
+  data-modal-target="authentication-modal"
+  data-modal-toggle="authentication-modal"
+  class="block sm:block hidden transition ease-in-out hover:scale-105 text-white bg-purple-700 hover:text-gray-200 hover:bg-purple-600 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-6 py-1 text-center"
+  type="button"
+>
+  POST
+</button>
 <% } else { %>
-  <h2 style="color: red;"><%= postButtonTimeRemaining %> hrs to go!</h2>
-<% } %>
-
-<% if (showPostButton) { %>
+<h2 style="color: red"><%= postButtonTimeRemaining %> hrs to go!</h2>
+<% } %> <% if (showPostButton) { %>
 <svg
-  class="w-5 h-5 sm:hidden text-gray-800 dark:text-gray-200  transition ease-in-out hover:scale-105 transition ease-in-out hover:scale-125"
+  class="w-5 h-5 sm:hidden text-gray-800 dark:text-gray-200 transition ease-in-out hover:scale-105 transition ease-in-out hover:scale-125"
   data-modal-target="authentication-modal"
   data-modal-toggle="authentication-modal"
   xmlns="http://www.w3.org/2000/svg"
@@ -30,9 +28,9 @@
   />
 </svg>
 <% } else { %>
-  <span></span>
+<span></span>
 <% } %>
-  
+
 <!-- Main modal -->
 <div
   id="authentication-modal"
@@ -64,10 +62,14 @@
         <span class="sr-only">Close modal</span>
       </button>
       <div class="px-6 py-6 lg:px-8 dark:text-gray-400">
-        <form class="grid gap-y-6 overflow-auto max-h-[400px]" action="/post/addPost" method="post">
+        <form
+          class="grid gap-y-6 overflow-auto max-h-[400px] postForm"
+          action="/post/addPost"
+          method="post"
+        >
           <div class="text-gray-800 dark:text-gray-200">
-            <h3 
-              style="color:red; text-align: center; margin-top: 0;"
+            <h3
+              style="color: red; text-align: center; margin-top: 0"
               id="titleError"
               class="err-message"
             >
@@ -82,14 +84,14 @@
             />
           </div>
           <div class="flex flex-col gap-1 text-black dark:text-white">
-            <h3 
-              style="color:red; text-align: center; margin-top: 0;" 
+            <h3
+              style="color: red; text-align: center; margin-top: 0"
               id="descriptionError"
               class="err-message"
             >
               Invalid Description
             </h3>
-            <label >Description</label>
+            <label>Description</label>
             <textarea
               type="text"
               id="addPostDescription"
@@ -97,21 +99,32 @@
               class="two max-h-[180px] min-h-[100px] dark:border-purple-300 inputhai form-control block w-full px-4 py-2 text-base font-normal text-gray-800 bg-white dark:bg-[#1b1b1bff] transition-colors duration-1000 dark:text-white bg-clip-padding border border-solid dark:focus:border-purple-600 rounded-xl transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-purple-600 border-purple-800 focus:outline-none"
             ></textarea>
             <div class="flex flex-row justify-end gap-2">
-              <svg
-                class="w-6 h-6"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke-width="1.5"
-                stroke="currentColor"
-                class="w-6 h-6"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 001.5-1.5V6a1.5 1.5 0 00-1.5-1.5H3.75A1.5 1.5 0 002.25 6v12a1.5 1.5 0 001.5 1.5zm10.5-11.25h.008v.008h-.008V8.25zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z"
+              <div>
+                <input
+                  type="file"
+                  style="display: none"
+                  id="postImagePicker"
+                  accept="image/png, image/jpeg"
                 />
-              </svg>
+                <input type="hidden" name="uploadedImages" id="postImageContainer" />
+                <label for="postImagePicker">
+                  <svg
+                    class="w-6 h-6"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke-width="1.5"
+                    stroke="currentColor"
+                    class="w-6 h-6"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 001.5-1.5V6a1.5 1.5 0 00-1.5-1.5H3.75A1.5 1.5 0 002.25 6v12a1.5 1.5 0 001.5 1.5zm10.5-11.25h.008v.008h-.008V8.25zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z"
+                    />
+                  </svg>
+                </label>
+              </div>
               <svg
                 class="w-6 h-6"
                 xmlns="http://www.w3.org/2000/svg"
@@ -145,7 +158,18 @@
                 </svg>
               </button>
             </div>
+            <div class="mt-4">
+              <div class="flex justify-center items-center w-full">
+                <img
+                  id="postImagePreview"
+                  class="h-[200px] max-w-full"
+                  src="https://images.unsplash.com/photo-1490604001847-b712b0c2f967?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MjF8fGxhbmRzY2FwZXxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60"
+                  alt=""
+                />
+              </div>
+            </div>
           </div>
+
           <button
             id="addPostButton"
             class="px-6 py-1 rounded-lg bg-purple-600 text-white border-purple-900 hover:bg-purple-800 hover:text-gray-200"

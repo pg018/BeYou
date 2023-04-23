@@ -5,6 +5,10 @@ const addPostBtn = document.getElementById('addPostButton')
 const titleError = document.getElementById('titleError')
 const descriptionError = document.getElementById('descriptionError')
 
+const postImagePicker = document.getElementById("postImagePicker");
+const postImageContainer = document.getElementById("postImageContainer");
+const postImagePreview = document.getElementById("postImagePreview");
+
 addPostBtn.disabled = true
 titleError.style.display = 'none'
 descriptionError.style.display = 'none'
@@ -51,3 +55,10 @@ description.addEventListener('change', (e) => {
 
 title.addEventListener('input', enableAddPostButton)
 description.addEventListener('input', enableAddPostButton)
+
+
+postImagePicker.addEventListener("change", async (e) => {
+  const img = await convertToBase64(e.target.files[0]);
+  postImagePreview.setAttribute("src", img);
+  postImageContainer.value = img;
+});

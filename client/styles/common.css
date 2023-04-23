@@ -11,6 +11,7 @@
   max-height: calc(100vh - 66px);
 }
 
+.postForm::-webkit-scrollbar,
 .feed::-webkit-scrollbar,
 .chatlist::-webkit-scrollbar 
 {
@@ -19,6 +20,7 @@
   border-radius: 5px;
 }
 
+.postForm::-webkit-scrollbar,
 .feed::-webkit-scrollbar-track,
 .chatlist::-webkit-scrollbar-track
 {
@@ -26,8 +28,29 @@
 	background-color: #706a6a;
 }
 
+.postForm::-webkit-scrollbar,
 .feed::-webkit-scrollbar-thumb,
 .chatlist::-webkit-scrollbar-thumb
+{
+	background-color: #444;
+  border-radius: 5px;
+}
+
+
+.postForm::-webkit-scrollbar
+{
+	width: 0px;
+	background-color: #000;
+  border-radius: 5px;
+}
+
+.postForm::-webkit-scrollbar
+{
+	-webkit-box-shadow: inset 0px 0px 6px rgba(0,0,0,.3);
+	background-color: #706a6a;
+}
+
+.postForm::-webkit-scrollbar
 {
 	background-color: #444;
   border-radius: 5px;

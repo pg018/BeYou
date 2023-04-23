@@ -125,14 +125,17 @@ const putAddFriend = async (req, res) => {
 }
 
 const postAddPost = async (req, res) => {
+  console.log(req.body);
   const jwtCookie = req.cookies.jwt
   const userId = JWTService.GetDecodedToken(jwtCookie).userId
   const postTitle = req.body.postTitle
   const postDescription = req.body.postDescription
+  const uploadedImages = req.body.uploadedImages;
   const finalObject = {
     userId,
     title: postTitle,
     description: postDescription,
+    uploadedImages: uploadedImages
   }
   await postModel(finalObject).save()
   await userModel.findByIdAndUpdate(userId, { lastPostedTime: new Date() })
