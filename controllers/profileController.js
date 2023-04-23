@@ -190,6 +190,18 @@ const searchProfile = async (req, res) => {
   config.filteredUsersList = users
   return res.render('./Pages/dashboard', { ...config })
 }
+
+const getUserSettings = async (req, res) => {
+  const jwtCookie = req.cookies.jwt
+  const userId = JWTService.GetDecodedToken(jwtCookie).userId
+  const config = await dashboardConfig(
+    jwtCookie,
+    './userSetting.ejs',
+    'User Settings',
+  )
+
+  res.render("./Pages/dashboard", {...config})
+}
  
 const profileController = {
   getProfile,
@@ -198,6 +210,7 @@ const profileController = {
   likePost,
   postEditProfile,
   searchProfile,
+  getUserSettings
 }
 
 module.exports = profileController

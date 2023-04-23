@@ -1,0 +1,46 @@
+.userSettingBox{
+    display: flex;
+    flex-direction: column;
+    padding: 4rem;
+    border-radius: 5px;
+    width: 90%;
+    max-width: 780px;
+}
+
+.container_user_setting{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.userSettingBox input[type="text"]{
+    background: none;
+    color:#3498db;
+    margin-bottom: 10px;
+    padding: 4px;
+    width: 100%;
+    height: 50%;
+    border: none;
+    font-family: 'Roboto',sans-serif;
+    font-weight: 400;
+    font-size: 15px;
+    margin-bottom: 2rem;
+    transition: 0.2s ease;
+}
+.userSettingBox input[type="text"]:focus{
+    border-bottom-right-radius: 20px;
+    transition: 0.2s ease;
+}
+.userSettingBox button{
+    border: 5px;
+    transition: all 0.3s;
+    padding: .6rem 1.7rem;
+    border-radius: 50px;
+    cursor: pointer;
+    width: fit-content;
+    margin: auto;
+}
+.userSettingBox button:hover{
+    transform: scale(1.01);
+    box-shadow: 0 5px 5px rgba(135, 159, 240, 0.4);
+}
