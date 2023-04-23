@@ -129,7 +129,7 @@
                   <span class="sr-only">Open user menu</span>
                   <img class="w-8 h-8 rounded-full" src="<%=
                   userData.profileImage ? userData.profileImage :
-                  "https://virtualpiano.net/wp-content/uploads/2020/08/Dua-Lipa-Artist-Online-Piano-Keyboard-Virtual-Piano.jpg"
+                  'https://virtualpiano.net/wp-content/uploads/2020/08/Dua-Lipa-Artist-Online-Piano-Keyboard-Virtual-Piano.jpg'
                   %>" alt="user photo" />
                 </button>
               </div>
@@ -304,7 +304,7 @@
               <span class="flex-1 ml-3 whitespace-nowrap">Account</span>
             </a>
           </li>
-          <% if(admin){ %>
+          <% if(userData.admin){ %>
           <li>
             <a
               href="/admin"

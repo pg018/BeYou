@@ -43,8 +43,6 @@ const getPosts = async (req, res) => {
     peopleMayKnowPromise,
     alreadyFriendsPromise,
   ]) 
-  //Checking whether user is admin or not
-  const userIsAdmin = thisUserData.admin;
   
   //parallelizing the api calls to fetch all data at once using 3 different calls
   const finalSuggestedFriendsList = followingList(usersList, alreadyFriends)
@@ -81,7 +79,7 @@ const getPosts = async (req, res) => {
     ...config,
     suggestedFriends: finalSuggestedFriendsList,
     mainFeedPosts: sortPostsByDescendingDate(mainFeedPosts),
-    admin: userIsAdmin,
+    userData: thisUserData,
   })
 }
 

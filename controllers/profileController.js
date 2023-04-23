@@ -24,7 +24,8 @@ const getProfile = async (req, res) => {
     description: userData.description ? userData.description : '',
     noFriends: userData.noFriends,
     noFollowing: userData.noFollowing,
-    profileImage: userData.profileImage
+    profileImage: userData.profileImage,
+    admin: userData.admin,
   }
   return res.render('./Pages/dashboard', {
     ...config,
@@ -114,25 +115,32 @@ const getEditProfile = async (req, res) => {
     './editProfile.ejs',
     'Edit Profile',
   )
-  
-  const userId = JWTService.GetDecodedToken(jwtCookie).userId;
-  const user = await userModel.findById(userId).select("username profileImage -_id emailId dateOfBirth description gender");
-  config.userData = user;
+
+  const userId = JWTService.GetDecodedToken(jwtCookie).userId
+  const user = await userModel
+    .findById(userId)
+    .select('username profileImage -_id emailId dateOfBirth description gender')
+  // used to get specific data only from database
+  config.userData = user
   return res.render('./Pages/dashboard', { ...config })
 }
 
 const postEditProfile = async (req, res) => {
-  console.log(req.body);
-  const userData = req.body;
-  const jwtCookie = req.cookies.jwt;
-  const userId = JWTService.GetDecodedToken(jwtCookie).userId;
+  console.log(req.body)
+  const userData = req.body
+  const jwtCookie = req.cookies.jwt
+  const userId = JWTService.GetDecodedToken(jwtCookie).userId
   if (!userData.profileImage) {
-    delete userData.profileImage;
+    delete userData.profileImage
   }
 
-  const updatedUser = await userModel.findOneAndUpdate({_id: userId}, {...userData}, {new: true});
+  const updatedUser = await userModel.findOneAndUpdate(
+    { _id: userId },
+    { ...userData },
+    { new: true },
+  )
 
-  return res.redirect("/profile/editProfile")
+  return res.redirect('/profile/editProfile')
 }
 
 const profileController = {
