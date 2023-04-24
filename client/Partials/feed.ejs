@@ -6,6 +6,7 @@
             userId: post.userId,
             postId: post.stringId,
             likes: post.likes,
+            comments: post.comments ? post.comments.length : 0,
             isAlreadyLikedByThisUser: post.isAlreadyLikedByThisUser,
             currentPage: 'homepage',
             name: post.username,

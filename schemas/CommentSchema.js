@@ -15,7 +15,7 @@ const commentSchema = new mongoose.Schema({
     required: true
   },
   replies: {
-    type: [replySchema],
+    type: [String],
     default: []
   },
   createdAt: {

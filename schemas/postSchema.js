@@ -10,7 +10,7 @@ const postSchema = new mongoose.Schema({
   likedBy: { type: [String], default: [], required: true },
   stringId: { type: String },
   uploadedImages: { type: String, default: ""},
-  comments: {type: [commentSchema], default: []}
+  comments: {type: [String], default: []}
 })
 
 postSchema.pre('save', function (next) {

@@ -5,6 +5,8 @@ const friendsModel = require('../schemas/friendsSchema')
 const notificationModel = require('../schemas/notificationSchema')
 const commentModel = require("../schemas/CommentSchema").commentModel;
 const dashboardConfig = require('../helpers/dashboardConfig')
+const timeSince = require("../helpers/dateTimeHelper");
+const moment = require("moment");
 
 
 //This function creates a new property for alreadyFollowing users by mapping usersCollection with FriendsCollection
@@ -170,6 +172,23 @@ const getPost = async (req, res) => {
 
   config.openedPost = {...post, isAlreadyLikedByThisUser: isAlreadyLiked, username: user.username, addedOn: post.addedOn, profileImage: user.profileImage }
 
+  config.openedPost.comments = [];
+  console.log(post);
+  if (post.comments) {
+    for(const commentId of post.comments) {
+      const comment = await commentModel.findOne({commentId}).lean().exec();
+      const userOfComment = await userModel.findOne({stringId: comment.userId}).select("username profileImage -_id").lean().exec();
+      comment.username = userOfComment.username;
+      comment.profileImage = userOfComment.profileImage;
+      comment.timeSince = moment(comment.createdAt, 'ddd MMM DD YYYY HH:mm:ss GMT Z').fromNow();
+      config.openedPost.comments.push(comment);
+    }
+  }
+
+  config.openedPost.comments = config.openedPost.comments.reverse();
+
+  console.log(config.openedPost);
+
   res.render("./Pages/dashboard", {...config})
 }
 
@@ -182,7 +201,9 @@ const addComment = async (req, res) => {
   console.log(post);
  
   const comment = await new commentModel({ userId: userId, postId: req.body.stringId, comment: req.body.comment });
-  await post.updateOne({$push: {comments: comment}});
+
+  await comment.save();
+  await post.updateOne({$push: {comments: comment.commentId}});
 
   return res.redirect(`/post/posts/${req.body.stringId}`);
 }
