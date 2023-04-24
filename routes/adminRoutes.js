@@ -5,8 +5,10 @@ const router = express.Router();
 
 router.get('/',adminMiddleware.isAdmin, adminController.getAdmin );
 
-router.get('/report/:reportId',adminController.getReport );
+router.get('/report/:reportId',adminMiddleware.isAdmin,adminController.getReport );
 
-router.get('/reportuser/:reportedId',adminController.getReportUser );
+router.get('/deletereport/:reportId',adminMiddleware.isAdmin, adminController.deleteReport)
+
+router.post('/delete/:deleteId',adminMiddleware.isAdmin, adminController.deleteAccount)
 
 module.exports = router;
