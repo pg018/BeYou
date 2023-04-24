@@ -34,11 +34,6 @@ const postLogin = async (req, res) => {
   const jwtToken = JWTService.SignPayload({
     userId: isUserExist._id.toString(),
   })
-  // const sessionsModelObject = {
-  //   userId: isUserExist._id.toString(),
-  //   token: jwtToken
-  // }
-  // await sessionsModel(sessions)
   res.cookie('jwt', jwtToken, {
     httpOnly: true,
     secure: true,

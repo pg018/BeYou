@@ -39,8 +39,6 @@
     margin: auto;
 }
 
-
-
 .userSettingBox button:hover{
     transform: scale(1.01);
     box-shadow: 0 2px 2px rgb(233 213 255);

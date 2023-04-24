@@ -9,19 +9,23 @@
   </div>
   <div class="top">
     <div class="Followers right">
-      <h2 class="small-font font-bold"><%=  userData.noFriends %></h2>
-      <p class="small-font">Followers</p>
+      <a href="/profile/followers/<%= userData.stringId %>">
+        <h2 class="small-font font-bold"><%=  userData.noFriends %></h2>
+        <p class="small-font">Followers</p>
+      </a>
     </div>
     <div class="profile flexcenter1">
       <img
         class="border-4 border-white dark:border-black transition-colors duration-1000"
-        src="<%= userData.profileImage ? userData.profileImage : "https://staticg.sportskeeda.com/editor/2022/07/aedcf-16570135965843.png" %>"
+        src="<%= userData.profileImage ? userData.profileImage : 'https://staticg.sportskeeda.com/editor/2022/07/aedcf-16570135965843.png' %>"
         alt="pfp"
       />
     </div>
     <div class="Following left">
-      <h2 class="small-font font-bold"><%= userData.noFollowing %></h2>
-      <p class="small-font">Following</p>
+      <a href="/profile/following/<%= userData.stringId %>">
+        <h2 class="small-font font-bold"><%= userData.noFollowing %></h2>
+        <p class="small-font">Following</p>
+      </a>
     </div>
   </div>
 
