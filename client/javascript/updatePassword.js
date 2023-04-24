@@ -3,6 +3,8 @@ const newPassword = document.getElementById('updatePass-newPass')
 const confirmNewPassword = document.getElementById('updatePass-confirmNewPass')
 const finalButton = document.getElementById('updatePass-confirmBtn')
 
+console.log("password")
+
 const validatePasswordInput = (value) => {
   if (value.trim().length === 0) {
     return false

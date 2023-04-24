@@ -14,7 +14,7 @@
     align-items: center;
 }
 
-.userSettingBox input[type="text"]{
+.userSettingBox input[type="password"]{
     background: none;
     margin-bottom: 10px;
     padding: 7px;
@@ -25,7 +25,7 @@
 }
 
 
-.userSettingBox input[type="text"]:focus{
+.userSettingBox input[type="password"]:focus{
     border-bottom-right-radius: 30px;
     border-bottom: 2px solid rgb(147 51 234);
     outline: none;
