@@ -53,8 +53,7 @@ const postForgotPasswordOtp = async (req, res) => {
       showNewPassword: false,
     })
   }
-  console.log(forgotPasswordDoc.otpCode)
-  if (Number(enteredOtp) !== Number(forgotPasswordDoc?.otpCode)) {
+  if (Number(enteredOtp) !== forgotPasswordDoc?.otpCode) {
     return res.render('./Pages/forgotPassword', {
       showOTP: true,
       errorMessage: 'Invalid OTP',
@@ -71,8 +70,6 @@ const postForgotPasswordOtp = async (req, res) => {
 const postSetNewPassword = async (req, res) => {
   const enteredNewPassword = req.body.newPassword
   const userEmailId = req.cookies.forgotPassEmail
-  console.log(enteredNewPassword)
-  console.log(userEmailId)
   const hashedPassword = await EncryptionService.EncryptString(
     enteredNewPassword,
   )

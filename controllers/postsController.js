@@ -184,7 +184,6 @@ const getPost = async (req, res) => {
   if (post.comments) {
     for (const commentId of post.comments) {
       const comment = await commentModel.findOne({ commentId }).lean().exec()
-      console.log(comment)
       const userOfComment = await userModel
         .findOne({ stringId: comment.userId })
         .select('username profileImage -_id stringId')
@@ -207,12 +206,10 @@ const getPost = async (req, res) => {
 }
 
 const addComment = async (req, res) => {
-  console.log(req.body)
   const jwtCookie = req.cookies.jwt
   const userId = JWTService.GetDecodedToken(jwtCookie).userId
 
   const post = await postModel.findOne({ stringId: req.body.stringId })
-  console.log(post)
 
   const comment = await new commentModel({
     userId: userId,
@@ -227,11 +224,9 @@ const addComment = async (req, res) => {
 }
 
 const addReply = async (req, res) => {
-  console.log(req.body)
   const jwtCookie = req.cookies.jwt
   const userId = JWTService.GetDecodedToken(jwtCookie).userId
   const comment = await commentModel.findOne({ commentId: req.body.commentId })
-  console.log(comment)
   const reply = new replyModel({
     userId: userId,
     postId: req.body.postId,
@@ -271,7 +266,6 @@ const getPostWithReply = async (req, res) => {
   if (post.comments) {
     for (const commentId of post.comments) {
       const comment = await commentModel.findOne({ commentId }).lean().exec()
-      console.log(comment)
       const userOfComment = await userModel
         .findOne({ stringId: comment.userId })
         .select('username profileImage -_id stringId')
@@ -316,7 +310,6 @@ const getPostWithReply = async (req, res) => {
 
   config.openedPost.comments = config.openedPost.comments.reverse()
 
-  console.log(config.openedPost.comments[0])
 
   res.render('./Pages/dashboard', {
     ...config,

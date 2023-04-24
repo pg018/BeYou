@@ -4,7 +4,6 @@ const settingsConfirmNewPassword = document.getElementById('updatePass-confirmNe
 const settingsFinalButton = document.getElementById('updatePass-confirmBtn')
 
 
-console.log("password")
 
 const validatePasswordInput = (value) => {
   if (value.trim().length === 0) {

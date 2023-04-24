@@ -20,7 +20,6 @@ function buttonToggler(sub, des) {
 
 subInput.addEventListener('change', (e) => {
     sub = e.target.value
-    console.log('h')
     if (!validateEnteredUsername(e.target.value)) {
       error[0].style.display = 'block'
     } else {
@@ -31,7 +30,6 @@ subInput.addEventListener('change', (e) => {
   
   desInput.addEventListener('change', (e) => {
     des = e.target.value
-    console.log('h')
   
     if (!validateEnteredUsername(e.target.value)) {
       error[1].style.display = 'block'

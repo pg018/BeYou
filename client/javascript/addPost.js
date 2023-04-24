@@ -59,7 +59,6 @@ description.addEventListener('input', enableAddPostButton)
 
 
 postImagePicker.addEventListener("change", async (e) => {
-  console.log("hiiiii")
   const files = e.target.files;
   for (let i = 0; i < files.length; i++) {
     const img = await convertToBase64(e.target.files[i]);

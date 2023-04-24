@@ -7714,9 +7714,7 @@ const EmojiPicker = function(options) {
         render: (e, attr) => {
             attr = ".second-btn"
             emojiList = undefined;
-            console.log(this.options.trigger, attr);
             const index = this.options.trigger.findIndex(item => item.selector === attr);
-            console.log(index);
             this.insertInto = this.options.trigger[index].insertInto;
 
             const position = functions.position();
