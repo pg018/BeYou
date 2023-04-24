@@ -62,12 +62,28 @@
                         <div>
                             <p class="text-[14px] pl-11"><%= openedPost.comments[i].comment %></p>
                         </div>
+                        <div class="flex flex-row justify-between">
+                                <a>
+                                    <div class="flex flex-row">
+                                        <p class="text-[12px]">
+                                            Replies
+                                        </p>
+                                        <svg class = "w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+                                        </svg>                                  
+                                    </div>
+                                </a>
+                                <p class="text-[12px]">Reply</p>
+                        </div>
+                        <div>
+                            <input class="w-full p-[5px] px-4 dark:bg-[#010101] text-[14px] outline-none rounded-full" type="search" placeholder="Reply..." />
+                        </div>
                     </div>
                 <% } %>
             </div>
             <div class="p-[5px] border-t-[1px] border-t-purple-600 dark:bg-[#010101] ">
                 <form class="flex flex-row" method="post" action="/post/addComment" >
-                    <input type="search" name="comment" placeholder="write a comment" required class="w-full p-2 px-4 bg-gray-800 outline-none rounded-full" />
+                    <input type="search" name="comment" placeholder="write a comment" required class="w-full p-2 px-4 dark:bg-gray-800 outline-none rounded-full" />
                     <input type="hidden" name="stringId" value="<%= openedPost.stringId %>" />
                     <button class="px-2">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">

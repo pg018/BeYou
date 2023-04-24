@@ -173,10 +173,10 @@ const getPost = async (req, res) => {
   config.openedPost = {...post, isAlreadyLikedByThisUser: isAlreadyLiked, username: user.username, addedOn: post.addedOn, profileImage: user.profileImage }
 
   config.openedPost.comments = [];
-  console.log(post);
   if (post.comments) {
     for(const commentId of post.comments) {
       const comment = await commentModel.findOne({commentId}).lean().exec();
+      console.log(comment);
       const userOfComment = await userModel.findOne({stringId: comment.userId}).select("username profileImage -_id").lean().exec();
       comment.username = userOfComment.username;
       comment.profileImage = userOfComment.profileImage;
@@ -187,10 +187,11 @@ const getPost = async (req, res) => {
 
   config.openedPost.comments = config.openedPost.comments.reverse();
 
-  console.log(config.openedPost);
 
   res.render("./Pages/dashboard", {...config})
 }
+
+
 
 const addComment = async (req, res) => {
   console.log(req.body);
