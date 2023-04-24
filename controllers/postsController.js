@@ -3,11 +3,11 @@ const postModel = require('../schemas/postSchema')
 const JWTService = require('../services/JWTService')
 const friendsModel = require('../schemas/friendsSchema')
 const notificationModel = require('../schemas/notificationSchema')
-const commentModel = require("../schemas/CommentSchema").commentModel;
+const commentModel = require('../schemas/CommentSchema').commentModel
+const replyModel = require('../schemas/replySchema').replyModel
 const dashboardConfig = require('../helpers/dashboardConfig')
-const timeSince = require("../helpers/dateTimeHelper");
-const moment = require("moment");
-
+const timeSince = require('../helpers/dateTimeHelper')
+const moment = require('moment')
 
 //This function creates a new property for alreadyFollowing users by mapping usersCollection with FriendsCollection
 const followingList = (userList, followingList) => {
@@ -159,53 +159,169 @@ const postAddPost = async (req, res) => {
 }
 
 const getPost = async (req, res) => {
-  const jwtCookie = req.cookies.jwt;
-  const userId = JWTService.GetDecodedToken(jwtCookie).userId;
-  const config = await dashboardConfig(jwtCookie, './postMain.ejs', 'Post');
-  
-  const post = await postModel.findOne({stringId: req.params.postId}).lean().exec();
+  const jwtCookie = req.cookies.jwt
+  const userId = JWTService.GetDecodedToken(jwtCookie).userId
+  const config = await dashboardConfig(jwtCookie, './postMain.ejs', 'Post')
 
-  const user = await userModel.findOne({stringId: post.userId}).lean().exec();
+  const post = await postModel
+    .findOne({ stringId: req.params.postId })
+    .lean()
+    .exec()
 
-  const isAlreadyLiked = //Checking if user has already, so that frontend like button can be colored
-            post.likedBy.filter((x) => x === userId).length !== 0  
+  const user = await userModel.findOne({ stringId: post.userId }).lean().exec()
 
-  config.openedPost = {...post, isAlreadyLikedByThisUser: isAlreadyLiked, username: user.username, addedOn: post.addedOn, profileImage: user.profileImage }
+  const isAlreadyLiked = post.likedBy.filter((x) => x === userId).length !== 0 //Checking if user has already, so that frontend like button can be colored
 
-  config.openedPost.comments = [];
-  console.log(post);
+  config.openedPost = {
+    ...post,
+    isAlreadyLikedByThisUser: isAlreadyLiked,
+    username: user.username,
+    addedOn: post.addedOn,
+    profileImage: user.profileImage,
+  }
+
+  config.openedPost.comments = []
   if (post.comments) {
-    for(const commentId of post.comments) {
-      const comment = await commentModel.findOne({commentId}).lean().exec();
-      const userOfComment = await userModel.findOne({stringId: comment.userId}).select("username profileImage -_id").lean().exec();
-      comment.username = userOfComment.username;
-      comment.profileImage = userOfComment.profileImage;
-      comment.timeSince = moment(comment.createdAt, 'ddd MMM DD YYYY HH:mm:ss GMT Z').fromNow();
-      config.openedPost.comments.push(comment);
+    for (const commentId of post.comments) {
+      const comment = await commentModel.findOne({ commentId }).lean().exec()
+      console.log(comment)
+      const userOfComment = await userModel
+        .findOne({ stringId: comment.userId })
+        .select('username profileImage -_id stringId')
+        .lean()
+        .exec()
+      comment.username = userOfComment.username
+      comment.profileImage = userOfComment.profileImage
+      comment.commentUserId = userOfComment.stringId
+      comment.timeSince = moment(
+        comment.createdAt,
+        'ddd MMM DD YYYY HH:mm:ss GMT Z',
+      ).fromNow()
+      config.openedPost.comments.push(comment)
     }
   }
 
-  config.openedPost.comments = config.openedPost.comments.reverse();
+  config.openedPost.comments = config.openedPost.comments.reverse()
 
-  console.log(config.openedPost);
-
-  res.render("./Pages/dashboard", {...config})
+  res.render('./Pages/dashboard', { ...config })
 }
 
 const addComment = async (req, res) => {
-  console.log(req.body);
-  const jwtCookie = req.cookies.jwt;
-  const userId = JWTService.GetDecodedToken(jwtCookie).userId;
+  console.log(req.body)
+  const jwtCookie = req.cookies.jwt
+  const userId = JWTService.GetDecodedToken(jwtCookie).userId
 
-  const post = await postModel.findOne({stringId: req.body.stringId});
-  console.log(post);
- 
-  const comment = await new commentModel({ userId: userId, postId: req.body.stringId, comment: req.body.comment });
+  const post = await postModel.findOne({ stringId: req.body.stringId })
+  console.log(post)
 
-  await comment.save();
-  await post.updateOne({$push: {comments: comment.commentId}});
+  const comment = await new commentModel({
+    userId: userId,
+    postId: req.body.stringId,
+    comment: req.body.comment,
+  })
 
-  return res.redirect(`/post/posts/${req.body.stringId}`);
+  await comment.save()
+  await post.updateOne({ $push: { comments: comment.commentId } })
+
+  return res.redirect(`/post/posts/${req.body.stringId}`)
+}
+
+const addReply = async (req, res) => {
+  console.log(req.body)
+  const jwtCookie = req.cookies.jwt
+  const userId = JWTService.GetDecodedToken(jwtCookie).userId
+  const comment = await commentModel.findOne({ commentId: req.body.commentId })
+  console.log(comment)
+  const reply = new replyModel({
+    userId: userId,
+    postId: req.body.postId,
+    commentId: req.body.commentId,
+    message: req.body.reply,
+  })
+
+  await reply.save()
+  await comment.updateOne({ $push: { replies: reply.replyId } })
+
+  return res.redirect(`/post/posts/${req.body.postId}/${req.body.commentId}`)
+}
+
+const getPostWithReply = async (req, res) => {
+  const jwtCookie = req.cookies.jwt
+  const userId = JWTService.GetDecodedToken(jwtCookie).userId
+  const config = await dashboardConfig(jwtCookie, './postMain.ejs', 'Post')
+
+  const post = await postModel
+    .findOne({ stringId: req.params.postId })
+    .lean()
+    .exec()
+
+  const user = await userModel.findOne({ stringId: post.userId }).lean().exec()
+
+  const isAlreadyLiked = post.likedBy.filter((x) => x === userId).length !== 0 //Checking if user has already, so that frontend like button can be colored
+
+  config.openedPost = {
+    ...post,
+    isAlreadyLikedByThisUser: isAlreadyLiked,
+    username: user.username,
+    addedOn: post.addedOn,
+    profileImage: user.profileImage,
+  }
+
+  config.openedPost.comments = []
+  if (post.comments) {
+    for (const commentId of post.comments) {
+      const comment = await commentModel.findOne({ commentId }).lean().exec()
+      console.log(comment)
+      const userOfComment = await userModel
+        .findOne({ stringId: comment.userId })
+        .select('username profileImage -_id stringId')
+        .lean()
+        .exec()
+
+      if (commentId === req.params.commentId) {
+        if (comment.replies) {
+          let replies = []
+          for (const replyId of comment.replies) {
+            const reply = await replyModel
+              .findOne({ replyId: replyId })
+              .lean()
+              .exec()
+
+            const UserWhoReplied = await userModel
+              .findOne({ stringId: reply.userId })
+              .lean()
+              .exec()
+
+            replies.push({
+              ...reply,
+              username: UserWhoReplied.username,
+              profileImage: UserWhoReplied.profileImage,
+              repliedUserId: UserWhoReplied.stringId,
+            })
+          }
+
+          comment.replies = replies.reverse()
+        }
+      }
+
+      comment.username = userOfComment.username
+      comment.profileImage = userOfComment.profileImage
+      comment.timeSince = moment(
+        comment.createdAt,
+        'ddd MMM DD YYYY HH:mm:ss GMT Z',
+      ).fromNow()
+      config.openedPost.comments.push({...comment, commentUserId: userOfComment.stringId})
+    }
+  }
+
+  config.openedPost.comments = config.openedPost.comments.reverse()
+
+  console.log(config.openedPost.comments[0])
+
+  res.render('./Pages/dashboard', {
+    ...config,
+    showCommentIdForSinglePost: req.params.commentId,
+  })
 }
 
 const postsController = {
@@ -213,7 +329,9 @@ const postsController = {
   postAddPost,
   putAddFriend,
   getPost,
-  addComment
+  addComment,
+  addReply,
+  getPostWithReply,
 }
 
 module.exports = postsController
