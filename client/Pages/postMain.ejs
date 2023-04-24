@@ -75,9 +75,9 @@
                                         </svg>                                  
                                     </div>
                                 </a>
-                                <p class="text-[12px] cursor-pointer" id = "reply-toggler">Reply</p>
+                                <p class="text-[12px] cursor-pointer reply-toggler">Reply</p>
                         </div>
-                        <div id = "reply" class="hidden">
+                        <div class="reply hidden">
                             <form class="flex flex-row" method="post" action="/post/addReply">
                                 <input class="w-full p-[5px] px-4 dark:bg-[#010101] text-[14px] outline-none rounded-full" required type="search" name="reply" placeholder="Reply..." />
                                 <input type="hidden" name="postId" value="<%= openedPost.stringId %>" />
