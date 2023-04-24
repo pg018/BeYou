@@ -26,7 +26,9 @@
       </p>
       <% if (likedImage) { %>
         <div>
+          <a href="/post/posts/<%= likedPostId %>">
             <img src="<%= likedImage %>" alt="likedimage" class="w-10 h-10 mr-2 ms-2" />
+          </a>
         </div>
       <% } %>
     </div>

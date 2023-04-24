@@ -10,8 +10,9 @@
                 <%- include('../Partials/notificationItem.ejs', {
                     message: notification.message,
                     imageRequired: notification.imageRequiredNotification,
-                    image: notification.fromUserProfileImage,
+                    image: notification.fromUserProfileImage ? notification.fromUserProfileImage : 'https://virtualpiano.net/wp-content/uploads/2020/08/Dua-Lipa-Artist-Online-Piano-Keyboard-Virtual-Piano.jpg',
                     fromUserId: notification.fromId,
+                    likedPostId: notification.likedPostId,
                     fromUserUsername: notification.fromUserUsername,
                     date: formattedDate,
                     likedImage: notification.likedImage

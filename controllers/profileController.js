@@ -293,17 +293,41 @@ const updatePassword = async (req, res) => {
 const deleteAccount = async (req, res) => {
   const jwtCookie = req.cookies.jwt
   const userId = JWTService.GetDecodedToken(jwtCookie).userId
-  await postModel.deleteMany({ userId })
-  await friendsModel.deleteMany({
-    $or: [{ userId }, { followingUserId: userId }],
-  })
-  await notificationModel.deleteMany({
-    $or: [{ fromId: userId }, { toId: userId }],
-  })
-  await reporterModel.deleteMany({
-    $or: [{ fromUserId: userId }, { toUserId: userId }],
-  })
-  await userModel.findByIdAndDelete(userId)
+  const postModelPromise = new Promise((resolve) =>
+    resolve(postModel.deleteMany({ userId })),
+  )
+  const friendsModelPromise = new Promise((resolve) =>
+    resolve(
+      friendsModel.deleteMany({
+        $or: [{ userId }, { followingUserId: userId }],
+      }),
+    ),
+  )
+  const notificationModelPromise = new Promise((resolve) =>
+    resolve(
+      notificationModel.deleteMany({
+        $or: [{ fromId: userId }, { toId: userId }],
+      }),
+    ),
+  )
+  const reporterModelPromise = new Promise((resolve) =>
+    resolve(
+      reporterModel.deleteMany({
+        $or: [{ fromUserId: userId }, { toUserId: userId }],
+      }),
+    ),
+  )
+  const userModelPromise = new Promise((resolve) =>
+    resolve(userModel.findByIdAndDelete(userId)),
+  )
+
+  await Promise.all([
+    postModelPromise,
+    friendsModelPromise,
+    notificationModelPromise,
+    reporterModelPromise,
+    userModelPromise,
+  ])
   res.clearCookie('jwt')
   return res.redirect('/')
 }
