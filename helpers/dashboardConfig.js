@@ -12,7 +12,8 @@ const isTimeLessThan24hrs = (userDate) => {
 const dashboardConfig = async (jwtCookie, main, title) => {
   const userId = JWTService.GetDecodedToken(jwtCookie).userId
   const userInfo = await userModel.findById(userId)
-  const notificationsNumber = (await notificationsModel.find({toId: userId})).length
+  const notificationsNumber = (await notificationsModel.find({ toId: userId }))
+    .length
   if (userInfo.lastPostedTime) {
     const [timeDiff, isTimeLess24hrs] = isTimeLessThan24hrs(
       userInfo.lastPostedTime,
@@ -27,6 +28,8 @@ const dashboardConfig = async (jwtCookie, main, title) => {
         userData: {
           profileImage: userInfo.profileImage,
           admin: userInfo?.admin,
+          emailId: userInfo?.emailId,
+          username: userInfo?.username,
         },
         suggestedFriends: [],
         userPosts: [],
@@ -38,7 +41,7 @@ const dashboardConfig = async (jwtCookie, main, title) => {
         openedPost: {},
         filteredUsersList: [],
         userSettingsError: '',
-        showCommentIdForSinglePost: ''
+        showCommentIdForSinglePost: '',
       }
     }
   }
@@ -49,7 +52,12 @@ const dashboardConfig = async (jwtCookie, main, title) => {
     notificationsNumber,
     postButtonTimeRemaining: '',
     suggestedFriends: [],
-    userData: { profileImage: userInfo.profileImage, admin: userInfo?.admin },
+    userData: {
+      profileImage: userInfo.profileImage,
+      admin: userInfo?.admin,
+      emailId: userInfo?.emailId,
+      username: userInfo?.username,
+    },
     userPosts: [],
     mainFeedPosts: [],
     otherUserData: {},
@@ -59,7 +67,7 @@ const dashboardConfig = async (jwtCookie, main, title) => {
     openedPost: {},
     filteredUsersList: [],
     userSettingsError: '',
-    showCommentIdForSinglePost: ''
+    showCommentIdForSinglePost: '',
   }
 }
 
