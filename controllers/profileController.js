@@ -2,8 +2,9 @@ const dashboardConfig = require('../helpers/dashboardConfig')
 const JWTService = require('../services/JWTService')
 const userModel = require('../schemas/userSchema')
 const postModel = require('../schemas/postSchema')
-const friendsSchema = require('../schemas/friendsSchema')
+const friendsModel = require('../schemas/friendsSchema')
 const notificationsModel = require('../schemas/notificationSchema')
+const EncryptionService = require('../services/EncryptionService')
 
 const getProfile = async (req, res) => {
   const jwtCookie = req.cookies.jwt
@@ -26,6 +27,7 @@ const getProfile = async (req, res) => {
     noFriends: userData.noFriends,
     noFollowing: userData.noFollowing,
     profileImage: userData.profileImage,
+    stringId: userData.stringId,
     admin: userData.admin,
   }
   return res.render('./Pages/dashboard', {
@@ -43,7 +45,7 @@ const getOtherUserProfile = async (req, res) => {
     // if the user clicks his own post, he should redirect to his/her profile page
     return res.redirect('/profile')
   }
-  const userData = await userModel.findById(userId)
+  const userData = await userModel.findById(userId).lean().exec()
   if (!userData) {
     return res.render('./Pages/notFoundError')
   }
@@ -53,16 +55,18 @@ const getOtherUserProfile = async (req, res) => {
       post.likedBy.filter((x) => x === thisUserId).length !== 0
     post.isAlreadyLikedByThisUser = isAlreadyLiked
   })
-  const isUserAlreadyFollowing = await friendsSchema.findOne({
+  const isUserAlreadyFollowing = await friendsModel.findOne({
     userId: thisUserId,
     followingUserId: userId,
   })
   const finalData = {
     userId: userData._id.toString(),
+    stringId: userData._id.toString(),
     username: userData.username,
     description: userData.description ? userData.description : '',
     noFriends: userData.noFriends,
     noFollowing: userData.noFollowing,
+    profileImage: userData.profileImage,
     alreadyFollowing: isUserAlreadyFollowing ? true : false,
   }
   userPosts.sort((a, b) => b.addedOn - a.addedOn) //sorting in descending order according to date added
@@ -176,7 +180,6 @@ const postEditProfile = async (req, res) => {
 
 const searchProfile = async (req, res) => {
   const jwtCookie = req.cookies.jwt
-  const userId = JWTService.GetDecodedToken(jwtCookie).userId
   const config = await dashboardConfig(
     jwtCookie,
     './usersList.ejs',
@@ -186,23 +189,105 @@ const searchProfile = async (req, res) => {
   const users = await userModel
     .find({ username: { $regex: req.query.username, $options: 'i' } })
     .select('-password -_id')
-  console.log(users)
   config.filteredUsersList = users
   return res.render('./Pages/dashboard', { ...config })
 }
 
 const getUserSettings = async (req, res) => {
   const jwtCookie = req.cookies.jwt
-  const userId = JWTService.GetDecodedToken(jwtCookie).userId
   const config = await dashboardConfig(
     jwtCookie,
     './userSetting.ejs',
     'User Settings',
   )
 
-  res.render("./Pages/dashboard", {...config})
+  res.render('./Pages/dashboard', { ...config })
 }
- 
+
+const getFollowersList = async (req, res) => {
+  const jwtCookie = req.cookies.jwt
+  const paramUserId = req.params.givenUserId
+  const followers = await friendsModel
+    .find({ followingUserId: paramUserId }) //getting followers
+    .lean()
+    .exec()
+  const finalFollowers = [...followers]
+  for (const follower of finalFollowers) {
+    const user = await userModel.findById(follower.userId).lean().exec()
+    follower.username = user.username
+    follower.stringId = follower.userId //The following person's userId
+    follower.alreadyFollowing = false
+    follower.profileImage = user.profileImage
+  }
+  const config = await dashboardConfig(
+    jwtCookie,
+    './usersList.ejs',
+    'Followers',
+  )
+  return res.render('./Pages/dashboard', {
+    ...config,
+    filteredUsersList: finalFollowers,
+  })
+}
+
+const getFollowingList = async (req, res) => {
+  const jwtCookie = req.cookies.jwt
+  const paramUserId = req.params.givenUserId
+  const following = await friendsModel
+    .find({ userId: paramUserId }) //getting following
+    .lean()
+    .exec()
+  const finalFollowing = [...following]
+  for (const follower of finalFollowing) {
+    const user = await userModel
+      .findById(follower.followingUserId)
+      .lean()
+      .exec()
+    follower.username = user.username
+    follower.stringId = follower.followingUserId //The following person's userId
+    follower.alreadyFollowing = true
+    follower.profileImage = user.profileImage
+  }
+  const config = await dashboardConfig(
+    jwtCookie,
+    './usersList.ejs',
+    'Following',
+  )
+  return res.render('./Pages/dashboard', {
+    ...config,
+    filteredUsersList: finalFollowing,
+  })
+}
+
+const updatePassword = async (req, res) => {
+  const jwtCookie = req.cookies.jwt
+  const userId = JWTService.GetDecodedToken(jwtCookie).userId
+  const user = await userModel.findById(userId)
+  const isPasswordMatch = await EncryptionService.VerifyString(
+    req.body.currPassword,
+    user.password,
+  )
+  if (!isPasswordMatch) {
+    const config = await dashboardConfig(
+      jwtCookie,
+      './userSetting.ejs',
+      'User Settings',
+    )
+    return res.render('./Pages/dashboard', {
+      ...config,
+      userSettingsError: 'Invalid Current Password',
+    })
+  }
+  const newPasswordEncrypt = await EncryptionService.EncryptString(
+    req.body.newPassword,
+  )
+  await userModel.updateOne(
+    { username: user.username },
+    { password: newPasswordEncrypt },
+  )
+  return res.redirect('/profile')
+}
+
 const profileController = {
   getProfile,
   getEditProfile,
@@ -210,7 +295,10 @@ const profileController = {
   likePost,
   postEditProfile,
   searchProfile,
-  getUserSettings
+  getUserSettings,
+  getFollowersList,
+  getFollowingList,
+  updatePassword,
 }
 
 module.exports = profileController

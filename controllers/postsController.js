@@ -140,7 +140,6 @@ const putAddFriend = async (req, res) => {
 }
 
 const postAddPost = async (req, res) => {
-  console.log(req.body)
   const jwtCookie = req.cookies.jwt
   const userId = JWTService.GetDecodedToken(jwtCookie).userId
   const postTitle = req.body.postTitle

@@ -121,6 +121,17 @@
   overflow: hidden;
 }
 
+.follow__other{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.follow__otherbtn{
+  width: 200px;
+}
+
 @keyframes fadeInAnimation {
   0% {
     opacity: 0;

@@ -9,19 +9,23 @@
   </div>
   <div class="top">
     <div class="Followers right">
-      <h2 class="small-font font-bold"><%=  otherUserData.noFriends %></h2>
-      <p class="small-font">Friends</p>
+      <a href="/profile/followers/<%= otherUserData.stringId %>">
+        <h2 class="small-font font-bold"><%=  otherUserData.noFriends %></h2>
+        <p class="small-font">Followers</p>
+      </a>
     </div>
     <div class="profile flexcenter1">
       <img
         class="border-4 border-white dark:border-black transition-colors duration-1000"
-        src="https://staticg.sportskeeda.com/editor/2022/07/aedcf-16570135965843.png"
+        src="<%= otherUserData.profileImage ? otherUserData.profileImage : 'https://staticg.sportskeeda.com/editor/2022/07/aedcf-16570135965843.png' %>"
         alt="pfp"
       />
     </div>
     <div class="Following left">
-      <h2 class="small-font font-bold"><%= otherUserData.noFollowing %></h2>
-      <p class="small-font">Following</p>
+      <a href="/profile/following/<%= otherUserData.stringId %>">
+        <h2 class="small-font font-bold"><%= otherUserData.noFollowing %></h2>
+        <p class="small-font">Following</p>
+      </a>
     </div>
   </div>
 
@@ -36,14 +40,17 @@
     </div>
   </div>
   <hr class="style2" />
-  <div class="mt-2 flex flex-col justify-center block transition ease-in-out hover:scale-105 text-white bg-purple-700 hover:text-gray-200 hover:bg-purple-600 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-6 py-1 text-center">
-    <a class="w-full text-center" href="/post/addFriend/<%= otherUserData.userId %>">
+  <div class="follow__other">
+    <a class=" mt-2  transition ease-in-out hover:scale-105 text-white bg-purple-700 hover:text-gray-200 hover:bg-purple-600 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm follow__otherbtn mx-2 py-1 text-center" href="/post/addFriend/<%= otherUserData.userId %>">
         <% if (otherUserData.alreadyFollowing) { %>
             Following
         <% } else { %>
             Follow
         <% } %> 
     </a>
+    <a class=" mt-2  transition ease-in-out hover:scale-105 text-white bg-purple-700 hover:text-gray-200 hover:bg-purple-600 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm follow__otherbtn mx-2 py-1 text-center" href="/admin/report/<%=otherUserData.userId %>">
+      Report
+  </a>
   </div>
     <div class="myposts">
       <% otherUserPostsData.forEach(post => { %>
@@ -58,8 +65,8 @@
             currentPage: 'otherUser',
             description: post.description,
             date: formattedDate,
-            profileImage: "https://staticg.sportskeeda.com/editor/2022/07/aedcf-16570135965843.png",
-            mainImage: "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NXx8cGFydHl8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60"
+            profileImage: otherUserData.profileImage ? otherUserData.profileImage : 'https://images.unsplash.com/photo-1578979879663-4ba6a968a50a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8YmVhdXRpZnVsJTIwZ2lybHN8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60',
+            mainImage: post.uploadedImages
           })
         %>
       <% }) %>
