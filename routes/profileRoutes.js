@@ -13,5 +13,6 @@ router.get('/userSettings', profileController.getUserSettings)
 router.post('/updatePassword', profileController.updatePassword)
 router.get('/followers/:givenUserId', profileController.getFollowersList)
 router.get('/following/:givenUserId', profileController.getFollowingList)
+router.get('/deleteAccount', profileController.deleteAccount)
 
 module.exports = router
