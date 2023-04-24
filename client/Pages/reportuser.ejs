@@ -40,9 +40,8 @@
   </head>
 
   <body class="dark:bg-[#121212] bg-[#dfdfdf] transition-colors duration-1000">
-    <%- include ('../Partials/adminNavbar.ejs') %>
     <div class=" main-container text-black mt-24">
-        <form class="w-full" id="formrep" action="/" method="post">
+        <form class="w-full" id="formrep" action="/report/<%=reportedId %>" method="post">
               
               
             <h1 style="font-size: 2rem;"  class=" mb-7 font-bold text-center">Report User</h1>
@@ -72,12 +71,12 @@
 
             
 
-              <button type="submit" class="btn-hover color-7">Report</button>
+              <button type="submit" id="report-submit" class="btn-hover color-7">Report</button>
             
           </form>
     </div>
     <script src="/../javascript/DarkLighButton.js"></script>
     <script src="/../javascript/helpers/LoginSignUpHelpers.js"></script>
-    <script src="/../javascript/SignUp.js"></script>
+    <script src="/../javascript/report.js"></script>
   </body>
 </html>
