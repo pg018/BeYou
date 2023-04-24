@@ -16,7 +16,7 @@ const getNotifications = async (req, res) => {
     .find({ toId: userId })
     .lean()
     .exec()
-  const finalNotifications = []
+  let finalNotifications = []
   for (const notification of notifications) {
     if (notification.imageRequiredNotification) {
       const fromUserData = await userModel
@@ -40,7 +40,8 @@ const getNotifications = async (req, res) => {
       finalNotifications.push(notification)
     }
   }
-  finalNotifications.sort((a, b) => b.createdAt - a.createdAt) //descending order
+  
+  finalNotifications = finalNotifications.reverse() //descending order
   return res.render('./Pages/dashboard', {
     ...config,
     notifications: finalNotifications,

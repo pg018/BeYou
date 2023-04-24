@@ -1,7 +1,8 @@
-const currentPassword = document.getElementById('updatePass-currentPass')
-const newPassword = document.getElementById('updatePass-newPass')
-const confirmNewPassword = document.getElementById('updatePass-confirmNewPass')
-const finalButton = document.getElementById('updatePass-confirmBtn')
+const settingsCurrentPassword = document.getElementById('updatePass-currentPass')
+const settingsNewPassword = document.getElementById('updatePass-newPass')
+const settingsConfirmNewPassword = document.getElementById('updatePass-confirmNewPass')
+const settingsFinalButton = document.getElementById('updatePass-confirmBtn')
+
 
 console.log("password")
 
@@ -12,28 +13,30 @@ const validatePasswordInput = (value) => {
   return true
 }
 
+settingsFinalButton.disabled = true
+
 const enableButton = () => {
   if (
-    validatePasswordInput(currentPassword.value) &&
-    validatePasswordInput(newPassword.value) &&
-    validatePasswordInput(confirmNewPassword)
+    validatePasswordInput(settingsCurrentPassword.value) &&
+    validatePasswordInput(settingsNewPassword.value) &&
+    validatePasswordInput(settingsConfirmNewPassword.value)
   ) {
-    finalButton.disabled = false
+    settingsFinalButton.disabled = false
   } else {
-    finalButton.disabled = true
+    settingsFinalButton.disabled = true
   }
 }
 
-currentPassword.addEventListener('change', (e) => {
+settingsCurrentPassword.addEventListener('change', (e) => {
   validatePasswordInput(e.target.value)
 })
-newPassword.addEventListener('change', (e) => {
+settingsNewPassword.addEventListener('change', (e) => {
   validatePasswordInput(e.target.value)
 })
-confirmNewPassword.addEventListener('change', (e) => {
+settingsConfirmNewPassword.addEventListener('change', (e) => {
   validatePasswordInput(e.target.value)
 })
 
-currentPassword.addEventListener('input', enableButton)
-newPassword.addEventListener('input', enableButton)
-confirmNewPassword.addEventListener('input', enableButton)
+settingsCurrentPassword.addEventListener('input', enableButton)
+settingsNewPassword.addEventListener('input', enableButton)
+settingsConfirmNewPassword.addEventListener('input', enableButton)
