@@ -1,0 +1,58 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Report</title>
+    <link
+      rel="shortcut icon"
+      href="/../Sources/favicon.ico"
+      type="image/x-icon"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
+      integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,400;0,500;0,800;1,800&family=Montserrat:ital,wght@0,300;0,400;0,500;0,700;0,900;1,700&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="/../tailwind.config.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="stylesheet" href="/../styles/styles.css" />
+    <link rel="stylesheet" href="/../styles/common.css" />
+    <link rel="stylesheet" href="/../styles/DarkLightButton.css" />
+    <link rel="stylesheet" href="/../styles/report.css" />
+  </head>
+
+  <body class="dark:bg-[#121212] bg-[#dfdfdf] transition-colors duration-1000">
+    <%- include ('../Partials/adminNavbar.ejs') %>
+    <div class=" main-container text-black mt-24">
+      <div class="report_container">
+        <h1>Report Id : <%= report._id %></h1>
+      <h2><%=report.fromUserId%></h2>
+     
+      </div>
+    </div>
+
+    <script src="/../javascript/helpers/UserHelpers.js"></script>
+    <script src="/../javascript/helpers/LoginSignUpHelpers.js"></script>
+    <script src="/../javascript/Login.js"></script>
+    <script src="/../javascript/admin.js"></script>
+    <script src="/../javascript/DarkLighButton.js"></script>
+  </body>
+</html>

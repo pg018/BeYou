@@ -1,0 +1,83 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Report User</title>
+    <link
+      rel="shortcut icon"
+      href="/../Sources/favicon.ico"
+      type="image/x-icon"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
+      integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,400;0,500;0,800;1,800&family=Montserrat:ital,wght@0,300;0,400;0,500;0,700;0,900;1,700&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="/../tailwind.config.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="stylesheet" href="/../styles/styles.css" />
+    <link rel="stylesheet" href="/../styles/common.css" />
+    <link rel="stylesheet" href="/../styles/DarkLightButton.css" />
+    <link rel="stylesheet" href="/../styles/report.css" />
+  </head>
+
+  <body class="dark:bg-[#121212] bg-[#dfdfdf] transition-colors duration-1000">
+    <%- include ('../Partials/adminNavbar.ejs') %>
+    <div class=" main-container text-black mt-24">
+        <form class="w-full" id="formrep" action="/" method="post">
+              
+              
+            <h1 style="font-size: 2rem;"  class=" mb-7 font-bold text-center">Report User</h1>
+
+            
+            <div class="mb-6 ">
+              <p class="error-message error">Invalid Subject</p>
+              <input
+                type="text"
+                name="subject"
+                class=" inputhai form-control block w-full px-4 py-2 text-base font-normal text-gray-800  transition-colors duration-1000  dark:bg-[#1b1b1bff] dark:text-white dark:border-purple-400 dark:focus:border-purple-600  bg-white bg-clip-padding border border-solid border-purple-700 rounded-xl transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-purple-300 focus:outline-none"
+                id="report-subject"
+                placeholder="Subject"
+              />
+            </div>
+            <div class="mb-6 ">
+                <p class="error-message error">Invalid Description</p>
+                <textarea
+                  type="text"
+                  name="description"
+                  class=" inputhai form-control block w-full px-4 py-2 text-base font-normal text-gray-800  transition-colors duration-1000  dark:bg-[#1b1b1bff] dark:text-white dark:border-purple-400 dark:focus:border-purple-600  bg-white bg-clip-padding border border-solid border-purple-700 rounded-xl transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-purple-300 focus:outline-none"
+                  id="report-description"
+                  placeholder="Description"
+                ></textarea>
+              </div>
+              
+
+            
+
+              <button type="submit" class="btn-hover color-7">Report</button>
+            
+          </form>
+    </div>
+    <script src="/../javascript/DarkLighButton.js"></script>
+    <script src="/../javascript/helpers/LoginSignUpHelpers.js"></script>
+    <script src="/../javascript/SignUp.js"></script>
+  </body>
+</html>

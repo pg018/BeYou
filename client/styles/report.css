@@ -1,0 +1,10 @@
+.main-container {
+  width: 100vw;
+  margin-top: 60px;
+  height: 100%;
+  padding: 0 2rem;
+}
+
+#formrep{
+    max-width: 800px;
+}

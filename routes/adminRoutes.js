@@ -5,6 +5,8 @@ const router = express.Router();
 
 router.get('/',adminMiddleware.isAdmin, adminController.getAdmin );
 
-router.get('/report/:reportedId',adminController.getReport );
+router.get('/report/:reportId',adminController.getReport );
+
+router.get('/reportuser/:reportedId',adminController.getReportUser );
 
 module.exports = router;
