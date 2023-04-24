@@ -1,8 +1,12 @@
 const mongoose = require('mongoose')
-const replySchema = require("./replySchema");
+const replySchema = require("./replySchema").replySchema;
 
 const commentSchema = new mongoose.Schema({
   userId: {
+    type: String,
+    required: true
+  },
+  postId: {
     type: String,
     required: true
   },
@@ -14,15 +18,22 @@ const commentSchema = new mongoose.Schema({
     type: [replySchema],
     default: []
   },
-  createdAt: { type: Date, default: new Date() },
-  stringId: {
+  createdAt: {
+    type: Date,
+    default: new Date() 
+  },
+  commentId: {
     type: String
   }
 })
 
 commentSchema.pre('save', function (next) {
-  this.stringId = this._id.toString()
+  this.commentId = this._id.toString()
   next()
 })
 
-module.exports = commentSchema;
+const commentModel = mongoose.model('Comment', commentSchema, 'commentCollection')
+
+
+module.exports.commentSchema = commentSchema;
+module.exports.commentModel = commentModel;

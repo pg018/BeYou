@@ -14,7 +14,7 @@ const postSchema = new mongoose.Schema({
 })
 
 postSchema.pre('save', function (next) {
-  this.stringId = this._id.toString()
+  this.stringId = this._id.toString() 
   next()
 })
 

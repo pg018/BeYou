@@ -3,7 +3,9 @@ const postModel = require('../schemas/postSchema')
 const JWTService = require('../services/JWTService')
 const friendsModel = require('../schemas/friendsSchema')
 const notificationModel = require('../schemas/notificationSchema')
+const commentModel = require("../schemas/CommentSchema").commentModel;
 const dashboardConfig = require('../helpers/dashboardConfig')
+
 
 //This function creates a new property for alreadyFollowing users by mapping usersCollection with FriendsCollection
 const followingList = (userList, followingList) => {
@@ -156,25 +158,42 @@ const postAddPost = async (req, res) => {
 }
 
 const getPost = async (req, res) => {
-  console.log(req.params);
   const jwtCookie = req.cookies.jwt;
   const userId = JWTService.GetDecodedToken(jwtCookie).userId;
   const config = await dashboardConfig(jwtCookie, './postMain.ejs', 'Post');
-
+  
   const post = await postModel.findOne({stringId: req.params.postId}).lean().exec();
+
+  const user = await userModel.findOne({stringId: post.userId}).lean().exec();
+
   const isAlreadyLiked = //Checking if user has already, so that frontend like button can be colored
             post.likedBy.filter((x) => x === userId).length !== 0  
 
-  config.openedPost = {...post, isAlreadyLikedByThisUser: isAlreadyLiked}
+  config.openedPost = {...post, isAlreadyLikedByThisUser: isAlreadyLiked, username: user.username, addedOn: post.addedOn, profileImage: user.profileImage }
 
-  res.render("./Pages/dashboard", {...config});
+  res.render("./Pages/dashboard", {...config})
+}
+
+const addComment = async (req, res) => {
+  console.log(req.body);
+  const jwtCookie = req.cookies.jwt;
+  const userId = JWTService.GetDecodedToken(jwtCookie).userId;
+
+  const post = await postModel.findOne({stringId: req.body.stringId});
+  console.log(post);
+ 
+  const comment = await new commentModel({ userId: userId, postId: req.body.stringId, comment: req.body.comment });
+  await post.updateOne({$push: {comments: comment}});
+
+  return res.redirect(`/post/posts/${req.body.stringId}`);
 }
 
 const postsController = {
   getPosts,
   postAddPost,
   putAddFriend,
-  getPost
+  getPost,
+  addComment
 }
 
 module.exports = postsController
