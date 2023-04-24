@@ -5,11 +5,16 @@ let submit = document.getElementById('signup-submit')
 let alerts = document.getElementsByClassName('error-message')
 let formSign = document.getElementById("formSign");
 let usernameInput= document.getElementById("signup-username")
-
+let subInput= document.getElementById("report-subject")
+let desInput= document.getElementById("report-description")
+let error = document.getElementsByClassName('error');
+console.log(emailInput)
 let email = ''
 let username= ''
 let password = ''
 let confirmPassword = ''
+let sub=''
+let des=''
 
 submit.disabled = true
 
@@ -32,6 +37,27 @@ usernameInput.addEventListener('change', (e) => {
   } else {
     alerts[0].style.display = 'none'
     buttonToggler(email, username, password, confirmPassword)
+  }
+})
+
+subInput.addEventListener('change', (e) => {
+  sub = e.target.value
+  console.log('h')
+  if (!validateEnteredUsername(e.target.value)) {
+    error[0].style.display = 'block'
+  } else {
+    error[0].style.display = 'none'
+  }
+})
+
+desInput.addEventListener('change', (e) => {
+  des = e.target.value
+  console.log('h')
+
+  if (!validateEnteredUsername(e.target.value)) {
+    error[1].style.display = 'block'
+  } else {
+    error[1].style.display = 'none'
   }
 })
 
@@ -65,6 +91,7 @@ confirmPasswordInput.addEventListener('change', (e) => {
     buttonToggler(email, username, password, confirmPassword)
   }
 })
+
 
 
 

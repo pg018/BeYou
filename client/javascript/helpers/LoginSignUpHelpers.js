@@ -12,7 +12,7 @@ const validateEnteredEmail = (emailAddress) => {
 }
 
 const validateEnteredUsername= (username)=>{
-  if(username.trim().length===0){
+  if(username.trim().length<5){
     return false
   }else{
     return true

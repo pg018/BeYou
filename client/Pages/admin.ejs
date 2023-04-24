@@ -43,37 +43,52 @@
     <div class="main-container">
       <div class="main">
         <div class="box-container">
-          <a href="/">
-          <div class="box ">
+          
+          <div class="box" onclick="showModal('box1')">
             <div class="text">
               <h2 class="topic-heading">
-                <%= totalaccounts %> <i class="fa-sharp fa-solid fa-desktop"></i>
+                <%= accounts.length %> <i class="fa-sharp fa-solid fa-desktop"></i>
               </h2>
               <h2 class="topic">Accounts Monitored</h2>
+             
             </div>
           </div>
-        </a>
-        <a href="/">
-          <div class="box ">
+
+          <div class="box " onclick="showModal('box2')">
             <div class="text">
               <h2 class="topic-heading">
-                <%= totalblocked %> <i class="fa-sharp fa-solid fa-ban"></i>
+                <%= totalblocked.length %> <i class="fa-sharp fa-solid fa-ban"></i>
               </h2>
               <h2 class="topic">Accounts Blocked</h2>
             </div>
           </div>
-        </a>
-        <a href="/">
-          <div class="box">
+
+          <div class="box" onclick="showModal('box3')">
             <div class="text">
               <h2 class="topic-heading">
-                <%= totalverified %> <i class="fa-solid fa-circle-check"></i>
+                <%= totalverified.length %> <i class="fa-solid fa-circle-check"></i>
               </h2>
               <h2 class="topic">Accounts Verified</h2>
             </div>
           </div>
         </div>
-      </a>
+
+
+      <div class="adminModal hiddenModal" id="adminModal1" onclick="showModal('box1')">
+        <div class="dark:text-gray-100 text-gray-900 bg-[#f7f7f7] dark:bg-[#121212] insideAdminModal">
+          <%- include('../Partials/adminModal.ejs', {accounts : accounts}) %>
+        </div>
+      </div>
+      <div class="adminModal hiddenModal " id="adminModal2" onclick="showModal('box2')">
+        <div class="dark:text-gray-100 text-gray-900 bg-[#f7f7f7] dark:bg-[#121212] insideAdminModal">
+          <%- include('../Partials/adminModal.ejs', {accounts : totalblocked}) %>
+        </div>
+      </div>
+      <div class="adminModal hiddenModal" id="adminModal3" onclick="showModal('box3')">
+        <div class="dark:text-gray-100 text-gray-900 bg-[#f7f7f7] dark:bg-[#121212] insideAdminModal">
+          <%- include('../Partials/adminModal.ejs', {accounts : totalverified}) %>
+        </div>
+      </div>
       <% if(reports.length > 0){ %>
         
         <div
@@ -96,10 +111,8 @@
               <div class="item1">
                 <h3 class="t-op-nextlvl"><%= reports[i].fromUserId %></h3>
                 <h3 class="t-op-nextlvl"><%= reports[i].toUserId %></h3>
-                <button onclick=viewReport() id="<%= i %>" class="t-op-nextlvl label-tag">View</button>
+                <a href="/admin/report/<%= reports[i]._id %>" id="<%= reports[i]._id %>" class="t-op-nextlvl label-tag">View</a>
               </div>
-
-             
               <% } %>
 
             </div>

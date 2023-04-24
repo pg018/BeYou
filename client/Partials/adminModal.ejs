@@ -1,0 +1,16 @@
+
+  <div>
+    <ul>
+      <li class="flex flex-row justify-between border-b-4 dark:border-gray-500 mb-4 ">
+        <h2>Email Id</h2>
+        <h2>Username</h2>
+      </li>
+      <% for(i=0; i< accounts.length; i++) { %> 
+        <li class="flex flex-row justify-between mb-4 border-b-2 dark:border-gray-500">
+            <h2><%= accounts[i].emailId %></h2>
+            <h2><%= accounts[i].username %></h2>
+        </li>
+        <% } %>
+    </ul>
+  </div>
+

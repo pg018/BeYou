@@ -45,10 +45,10 @@
               <% if (error === 1) { %>
                 <h1 class="err-message">User Already Exists</h1>
               <% } else if (error === 0) { %>
-                <h1 class="err-message">Something went Wrong</h1>
+                <!-- <h1 class="err-message">Something went Wrong</h1> -->
               <% } %>
               <div class="mb-6 ">
-                <p class="error-message">Invalid Username</p>
+                <p class="error-message">Username must be 5 characters long.</p>
                 <input
                   type="text"
                   name="username"
@@ -70,7 +70,7 @@
               </div>
 
               <div class="mb-6 ">
-                <p class="error-message">Enter a valid password</p>
+                <p class="error-message">Password must contain both case alphabet, number and special symbol. </p>
                 <input
                   type="password"
                   name="pass1"
