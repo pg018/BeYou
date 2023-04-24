@@ -44,7 +44,6 @@ const getReport = async (req, res) => {
   reportModel
     .find({ _id: reportId })
     .then((report) => {
-      console.log(report[0])
       res.render('./Pages/report',{
         report: report[0]
       })
