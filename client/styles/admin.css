@@ -182,7 +182,7 @@ padding: 8px ;
     display: none;
 }
 
-@media (max-width: 480px) {
+@media (max-width: 620px) {
     .recent-Articles{
         font-size: 1.4rem;
         text-align: center;
@@ -193,7 +193,7 @@ padding: 8px ;
         flex-direction: column;
         width: 100%;
         line-height: 2;
-        margin-bottom: 2rem;
+        margin-bottom: 0.5rem;
     }
 
     .item1 h3{
