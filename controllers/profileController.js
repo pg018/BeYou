@@ -5,6 +5,8 @@ const postModel = require('../schemas/postSchema')
 const friendsModel = require('../schemas/friendsSchema')
 const notificationsModel = require('../schemas/notificationSchema')
 const EncryptionService = require('../services/EncryptionService')
+const reporterModel = require('../schemas/reporterSchema')
+const notificationModel = require('../schemas/notificationSchema')
 
 const getProfile = async (req, res) => {
   const jwtCookie = req.cookies.jwt
@@ -288,6 +290,24 @@ const updatePassword = async (req, res) => {
   return res.redirect('/profile')
 }
 
+const deleteAccount = async (req, res) => {
+  const jwtCookie = req.cookies.jwt
+  const userId = JWTService.GetDecodedToken(jwtCookie).userId
+  await postModel.deleteMany({ userId })
+  await friendsModel.deleteMany({
+    $or: [{ userId }, { followingUserId: userId }],
+  })
+  await notificationModel.deleteMany({
+    $or: [{ fromId: userId }, { toId: userId }],
+  })
+  await reporterModel.deleteMany({
+    $or: [{ fromUserId: userId }, { toUserId: userId }],
+  })
+  await userModel.findByIdAndDelete(userId)
+  res.clearCookie('jwt')
+  return res.redirect('/')
+}
+
 const profileController = {
   getProfile,
   getEditProfile,
@@ -299,6 +319,7 @@ const profileController = {
   getFollowersList,
   getFollowingList,
   updatePassword,
+  deleteAccount,
 }
 
 module.exports = profileController

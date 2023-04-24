@@ -17,7 +17,7 @@
     <div class="profile flexcenter1">
       <img
         class="border-4 border-white dark:border-black transition-colors duration-1000"
-        src="<%= userData.profileImage ? userData.profileImage : 'https://staticg.sportskeeda.com/editor/2022/07/aedcf-16570135965843.png' %>"
+        src="<%= userData.profileImage ? userData.profileImage : 'https://virtualpiano.net/wp-content/uploads/2020/08/Dua-Lipa-Artist-Online-Piano-Keyboard-Virtual-Piano.jpg' %>"
         alt="pfp"
       />
     </div>
@@ -80,10 +80,10 @@
             comments: post.comments ? post.comments.length: 0,
             isAlreadyLikedByThisUser: post.isAlreadyLikedByThisUser,
             currentPage: 'myProfile',
-            description: post.description ,
+            description: post.description,
             date: formattedDate,
-            profileImage: "https://staticg.sportskeeda.com/editor/2022/07/aedcf-16570135965843.png",
-            mainImage: "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NXx8cGFydHl8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60"
+            profileImage: userData.profileImage ? userData.profileImage : 'https://virtualpiano.net/wp-content/uploads/2020/08/Dua-Lipa-Artist-Online-Piano-Keyboard-Virtual-Piano.jpg',
+            mainImage: post.uploadedImages
           })
         %>
       <% }) %>

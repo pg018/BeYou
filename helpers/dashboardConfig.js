@@ -1,5 +1,6 @@
 const userModel = require('../schemas/userSchema')
 const JWTService = require('../services/JWTService')
+const notificationsModel = require('../schemas/notificationSchema')
 
 const isTimeLessThan24hrs = (userDate) => {
   const currentDate = new Date()
@@ -11,6 +12,7 @@ const isTimeLessThan24hrs = (userDate) => {
 const dashboardConfig = async (jwtCookie, main, title) => {
   const userId = JWTService.GetDecodedToken(jwtCookie).userId
   const userInfo = await userModel.findById(userId)
+  const notificationsNumber = (await notificationsModel.find({toId: userId})).length
   if (userInfo.lastPostedTime) {
     const [timeDiff, isTimeLess24hrs] = isTimeLessThan24hrs(
       userInfo.lastPostedTime,
@@ -19,6 +21,7 @@ const dashboardConfig = async (jwtCookie, main, title) => {
       return {
         main,
         title,
+        notificationsNumber,
         showPostButton: false,
         postButtonTimeRemaining: timeDiff.toString(),
         userData: {
@@ -42,6 +45,7 @@ const dashboardConfig = async (jwtCookie, main, title) => {
     main,
     title,
     showPostButton: true,
+    notificationsNumber,
     postButtonTimeRemaining: '',
     suggestedFriends: [],
     userData: { profileImage: userInfo.profileImage, admin: userInfo?.admin },

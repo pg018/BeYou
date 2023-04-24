@@ -2,7 +2,7 @@
     <div class="flex flex-col basis-2/3 postMainContainer overflow-y-auto overflow-x-hidden scroll-smooth">
         <div class="flex flex-row items-center p-2 gap-2 dark:bg-[#010101] shadow-md">
             <div class="w-14 h-14">
-                <img class="image_profile" src=<%= openedPost.profileImage ? openedPost.profileImage: "https://images.unsplash.com/photo-1511367461989-f85a21fda167?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8cHJvZmlsZXxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60" %> alt="">
+                <img class="image_profile" src="<%= openedPost.profileImage ? openedPost.profileImage: 'https://virtualpiano.net/wp-content/uploads/2020/08/Dua-Lipa-Artist-Online-Piano-Keyboard-Virtual-Piano.jpg' %>" alt="">
             </div>
             <div class="leading-6">
                 <a 
@@ -52,7 +52,7 @@
                     <div class="p-2 flex flex-col gap-y-1 dark:bg-[#272727] border-b-[1px] border-purple-600 rounded-br-lg">
                         <div class="flex flex-row gap-x-2 items-center">
                             <div>
-                                <img class="rounded-full w-9 h-9" src="<%= openedPost.comments[i].profileImage ? openedPost.comments[i].profileImage : 'https://images.unsplash.com/photo-1457449940276-e8deed18bfff?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Nnx8cHJvZmlsZXxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60' %>" />
+                                <img class="rounded-full w-9 h-9" src="<%= openedPost.comments[i].profileImage ? openedPost.comments[i].profileImage : 'https://virtualpiano.net/wp-content/uploads/2020/08/Dua-Lipa-Artist-Online-Piano-Keyboard-Virtual-Piano.jpg' %>" />
                             </div>
                             <div>
                                 <p class="text-[14px]"><%= openedPost.comments[i].username %></p>
