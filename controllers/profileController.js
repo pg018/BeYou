@@ -322,34 +322,6 @@ const deleteAccount = async (req, res) => {
   const userModelPromise = new Promise((resolve) =>
     resolve(userModel.findByIdAndDelete(userId)),
   )
-  const replyModelPromise = new Promise((resolve) => {
-    resolve(async () => {
-      const replies = await replyModel.find({userId: userId});
-      for (const reply of replies) {
-        await commentModel.updateOne({commendId: reply.commentId}, {
-          $pullAll: {
-            replies: [{replyId: reply.replyId}],
-          }
-        })
-
-      }
-      await replyModel.deleteMany({userId: userId});
-    })
-  });
-  const commentModelPromise = new Promise((resolve) => {
-    resolve(async () => {
-      const comments = await commentModel.find({userId: userId});
-      for (const comment of comments) {
-        await postModel.updateOne({stringId: comment.postId}, {
-          $pullAll: {
-            comments: [{commentId: comment.commentId}],
-          }
-        })
-
-      }
-      await commentModel.deleteMany({userId: userId});
-    })
-  });
 
 
   await Promise.all([
@@ -358,8 +330,6 @@ const deleteAccount = async (req, res) => {
     notificationModelPromise,
     reporterModelPromise,
     userModelPromise,
-    replyModelPromise,
-    commentModelPromise
   ])
   res.clearCookie('jwt')
   return res.redirect('/')
