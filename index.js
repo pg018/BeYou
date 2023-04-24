@@ -28,6 +28,9 @@ app.use(errorHandlingMiddleware)
 app.get('/', (req, res) => {
   res.render('./Pages/home')
 })
+app.get('/team', (req, res) => {
+  res.render('./Pages/team')
+})
 app.use('/auth', authRouter)
 app.use('/profile', authMiddleware.verifyLogin, profileRouter)
 app.use('/notification', authMiddleware.verifyLogin, notificationRouter)
