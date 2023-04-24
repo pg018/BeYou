@@ -1,6 +1,9 @@
-const replyContainer = document.getElementById("reply");
-const replyToggler = document.getElementById("reply-toggler");
+const replyContainer = document.getElementsByClassName("reply");
+const replyToggler = document.getElementsByClassName("reply-toggler");
 
-replyToggler.addEventListener("click", (e) => {
-    replyContainer.classList.toggle("hidden");
-})
+
+for (let i = 0; i < replyToggler.length; i++) {
+    replyToggler[i].addEventListener("click", (e) => {
+        replyContainer[i].classList.toggle("hidden");
+    })
+}
