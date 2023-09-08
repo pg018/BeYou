@@ -52,10 +52,16 @@
           <div
             class="xl:ml-20 xl:w-5/12 lg:w-5/12 md:w-6/12 w-100 dark:bg-[#1f1f1f] dark:text-white transition-colors duration-1000 text-black bg-[#ebebeb] text-sm containerhai"
           >
-            <form class="w-full" name="loginForm" action="/auth/login" method="post">
+            <!-- <form class="w-full" name="loginForm" action="/auth/login" method="post"> -->
+            <form class="w-full" name="loginForm">
               <h1 style="font-size: 2rem" class="mb-7 font-bold text-center">
                 Login
               </h1>
+              <h3
+                id="userNonExistError"
+                class="err-message"
+                style="text-align: center; margin-top: 0"
+              ></h3>
               <% if (showError) { %>
               <h3
                 id="userNonExistError"

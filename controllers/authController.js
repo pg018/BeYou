@@ -11,35 +11,76 @@ const getRegister = (req, res) => {
   return res.render('./Pages/signUp', { error: 0 })
 }
 
+// const postLogin = async (req, res) => {
+//   const isUserExist = await userModel.findOne({
+//     emailId: req.body.email,
+//   })
+//   if (!isUserExist) {
+//     return res.render('./Pages/login', {
+//       errorMessage: 'User Does Not Exist',
+//       showError: true,
+//     })
+//   }
+//   const isPasswordMatch = await EncryptionService.VerifyString(
+//     req.body.password,
+//     isUserExist.password,
+//   )
+//   if (!isPasswordMatch) {
+//     return res.render('./Pages/login', {
+//       errorMessage: 'Invalid Password',
+//       showError: true,
+//     })
+//   }
+//   const jwtToken = JWTService.SignPayload({
+//     userId: isUserExist._id.toString(),
+//   })
+//   res.cookie('jwt', jwtToken, {
+//     httpOnly: true,
+//     secure: true,
+//     expires: new Date(Date.now() + 60 * 60 * 1000),
+//   })
+//   return res.redirect('/post/posts')
+// }
+
 const postLogin = async (req, res) => {
-  const isUserExist = await userModel.findOne({
-    emailId: req.body.email,
-  })
-  if (!isUserExist) {
-    return res.render('./Pages/login', {
-      errorMessage: 'User Does Not Exist',
+  try {
+    const isUserExist = await userModel.findOne({
+      emailId: req.body.email,
+    })
+    if (!isUserExist) {
+      return res.status(400).json({
+        errorMessage: 'User Does Not Exist',
+        showError: true,
+      })
+    }
+    const isPasswordMatch = await EncryptionService.VerifyString(
+      req.body.password,
+      isUserExist.password,
+    )
+    if (!isPasswordMatch) {
+      return res.status(400).json({
+        errorMessage: 'Invalid Password',
+        showError: true,
+      })
+    }
+    const jwtToken = JWTService.SignPayload({
+      userId: isUserExist._id.toString(),
+    })
+    res.cookie('jwt', jwtToken, {
+      httpOnly: true,
+      secure: true,
+      expires: new Date(Date.now() + 60 * 60 * 1000),
+    })
+    return res.status(200).json({
+      message: 'Login successful',
+      redirectUrl: '/post/posts',
+    })
+  } catch (error) {
+    return res.status(500).json({
+      errorMessage: 'Internal Server Error',
       showError: true,
     })
   }
-  const isPasswordMatch = await EncryptionService.VerifyString(
-    req.body.password,
-    isUserExist.password,
-  )
-  if (!isPasswordMatch) {
-    return res.render('./Pages/login', {
-      errorMessage: 'Invalid Password',
-      showError: true,
-    })
-  }
-  const jwtToken = JWTService.SignPayload({
-    userId: isUserExist._id.toString(),
-  })
-  res.cookie('jwt', jwtToken, {
-    httpOnly: true,
-    secure: true,
-    expires: new Date(Date.now() + 60 * 60 * 1000),
-  })
-  return res.redirect('/post/posts')
 }
 
 const postRegister = async (req, res) => {
@@ -52,7 +93,7 @@ const postRegister = async (req, res) => {
       return res.render('./Pages/signUp', { error: 1 })
     }
 
-    
+
     const hashedPassword = await EncryptionService.EncryptString(req.body.pass1)
     const finalObject = {
       username: req.body.username,
