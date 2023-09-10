@@ -155,7 +155,7 @@ const postAddPost = async (req, res) => {
   }
   await postModel(finalObject).save()
   await userModel.findByIdAndUpdate(userId, { lastPostedTime: new Date() })
-  return res.redirect('/post/posts')
+  return res.sendStatus(201)
 }
 
 const getPost = async (req, res) => {
