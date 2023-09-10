@@ -91,7 +91,7 @@ const likePost = async (req, res) => {
   let returnPath = '/post/posts'
   const post = await postModel.findById(req.params.postId) // post he/she has liked/disliked
   if (req.params.currentPage === 'myProfile') {
-    //Checks on which page is the post being liked
+    // Checks on which page is the post being liked
     returnPath = '/profile'
   } else if (req.params.currentPage === 'otherUser') {
     returnPath = `/profile/userProfile/${post.userId}`
@@ -99,10 +99,11 @@ const likePost = async (req, res) => {
     returnPath = `/post/posts/${req.params.postId}`
   }
 
-  const thisUserId = JWTService.GetDecodedToken(jwtCookie).userId //current userId
+  const thisUserId = JWTService.GetDecodedToken(jwtCookie).userId // current userId
   if (!post) {
     return res.redirect(returnPath)
   }
+
   const hasUserAlreadyLiked = post.likedBy.filter((x) => x === thisUserId)
   if (hasUserAlreadyLiked.length === 0) {
     //not liked, so liking the post
@@ -121,14 +122,20 @@ const likePost = async (req, res) => {
       }
       await notificationsModel(notificationDocument).save()
     }
-    return res.redirect(returnPath)
+
+    val = 1;
+  } else {
+    await postModel.updateOne(
+      { _id: post._id.toString() },
+      { $pull: { likedBy: thisUserId }, $inc: { likes: -1 } },
+      { new: true },
+    )
+
+    val = -1;
   }
-  await postModel.updateOne(
-    { _id: post._id.toString() },
-    { $pull: { likedBy: thisUserId }, $inc: { likes: -1 } },
-    { new: true },
-  )
-  return res.redirect(returnPath)
+
+
+  return res.status(200).json({val: val});
 }
 
 const getEditProfile = async (req, res) => {
