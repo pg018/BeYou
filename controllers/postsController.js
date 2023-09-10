@@ -114,7 +114,7 @@ const putAddFriend = async (req, res) => {
       { $inc: { noFriends: -1 } },
       { new: true },
     )
-    return res.redirect('/post/posts')
+    return res.json({ message: 'Follow' })
   }
   //not friends, so adding them
   await friendsModel({
@@ -138,7 +138,7 @@ const putAddFriend = async (req, res) => {
     imageRequiredNotification: true,
   }
   await notificationModel(notificationDocument).save()
-  return res.redirect('/post/posts')
+  return res.json({ message: 'Following' })
 }
 
 const postAddPost = async (req, res) => {
@@ -304,12 +304,14 @@ const getPostWithReply = async (req, res) => {
         comment.createdAt,
         'ddd MMM DD YYYY HH:mm:ss GMT Z',
       ).fromNow()
-      config.openedPost.comments.push({...comment, commentUserId: userOfComment.stringId})
+      config.openedPost.comments.push({
+        ...comment,
+        commentUserId: userOfComment.stringId,
+      })
     }
   }
 
   config.openedPost.comments = config.openedPost.comments.reverse()
-
 
   res.render('./Pages/dashboard', {
     ...config,

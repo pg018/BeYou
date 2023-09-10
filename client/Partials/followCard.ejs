@@ -1,4 +1,4 @@
-<div class="follow__card bg-[#f7f7f7] dark:bg-[#121212] transition-colors duration-1000 shadow-md dark:shadow-gray-900">
+<div class="follow-card-user follow__card bg-[#f7f7f7] dark:bg-[#121212] transition-colors duration-1000 shadow-md dark:shadow-gray-900">
     <div class="follow__content bg-[#f7f7f7] dark:bg-[#121212] gap-1 transition-colors duration-1000 ">
         <div class="follow__img cursor-pointer">
             <img src="<%= profileImage %>" alt="">
@@ -12,11 +12,12 @@
             </a>
         </div>
     </div>
-    <a href="/post/addFriend/<%= userId %>" class="px-4 py-1 bg-purple-700 text-zinc-200 mr-1 rounded-lg transition ease-in-out hover:scale-105 hover:bg-purple-600">
+    <input class="friendOptionsId" value="<%= userId %>" hidden />
+    <div class="follow-user-btn px-4 py-1 bg-purple-700 text-zinc-200 mr-1 rounded-lg transition ease-in-out hover:scale-105 hover:bg-purple-600">
         <% if (alreadyFollowing) { %>
             Following
         <% } else { %>
             Follow
         <% }%>
-    </a>
+    </div>
 </div>
