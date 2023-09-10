@@ -84,13 +84,14 @@ const postLogin = async (req, res) => {
 }
 
 const postRegister = async (req, res) => {
+  console.log(req.body);
   try {
     const isUserExist = await userModel.findOne({
       $or: [{ emailId: req.body.email }, { username: req.body.username }],
     })
 
     if (isUserExist) {
-      return res.render('./Pages/signUp', { error: 1 })
+      return res.status(409).send();
     }
 
 
@@ -101,10 +102,10 @@ const postRegister = async (req, res) => {
       password: hashedPassword,
     }
     await userModel(finalObject).save()
-    return res.status(200).redirect('/auth/login')
+    return res.status(200).send();
   } catch (err) {
     console.log(err)
-    return res.render('./Pages/signUp', { error: 0 })
+    return res.status(500).send();
   }
 }
 
